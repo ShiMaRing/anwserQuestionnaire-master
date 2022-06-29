@@ -64,7 +64,7 @@ spring:
 #     password: 123456
 #     driver-class-name: com.mysql.jdbc.Driver
     #连接mysql8数据库
-    url: jdbc:mysql://127.0.0.1:3306/questionnaire?useUnicode=true&characterEncoding=utf-8&useSSL=false
-    username: root
+    url: jdbc:mysql://101.43.161.75:3306/questionnaire?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: ques
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
