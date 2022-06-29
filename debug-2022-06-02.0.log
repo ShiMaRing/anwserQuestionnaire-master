@@ -1,0 +1,108 @@
+2022-06-02 23:08:28.430 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -==>  Preparing: SELECT id,username,`password`,status FROM user_info WHERE username = ? AND status = "1"
+2022-06-02 23:08:28.430 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -==>  Preparing: SELECT id,username,`password`,status FROM user_info WHERE username = ? AND status = "1"
+2022-06-02 23:08:28.445 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -==> Parameters: admin(String)
+2022-06-02 23:08:28.445 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -==> Parameters: admin(String)
+2022-06-02 23:08:28.457 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -<==      Total: 1
+2022-06-02 23:08:28.457 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -<==      Total: 1
+2022-06-02 23:53:23.903 [http-nio-8085-exec-7] DEBUG c.a.q.d.U.selectUserInfo -==>  Preparing: SELECT id,username,`password`,status FROM user_info WHERE username = ? AND status = "1"
+2022-06-02 23:53:23.903 [http-nio-8085-exec-7] DEBUG c.a.q.d.U.selectUserInfo -==>  Preparing: SELECT id,username,`password`,status FROM user_info WHERE username = ? AND status = "1"
+2022-06-02 23:53:23.916 [http-nio-8085-exec-7] DEBUG c.a.q.d.U.selectUserInfo -==> Parameters: admin(String)
+2022-06-02 23:53:23.916 [http-nio-8085-exec-7] DEBUG c.a.q.d.U.selectUserInfo -==> Parameters: admin(String)
+2022-06-02 23:53:23.928 [http-nio-8085-exec-7] DEBUG c.a.q.d.U.selectUserInfo -<==      Total: 1
+2022-06-02 23:53:23.928 [http-nio-8085-exec-7] DEBUG c.a.q.d.U.selectUserInfo -<==      Total: 1
+2022-06-02 23:53:33.044 [http-nio-8085-exec-1] DEBUG c.a.q.d.U.queryExistUser -==>  Preparing: SELECT count(1) FROM user_info where username = ?
+2022-06-02 23:53:33.044 [http-nio-8085-exec-1] DEBUG c.a.q.d.U.queryExistUser -==>  Preparing: SELECT count(1) FROM user_info where username = ?
+2022-06-02 23:53:33.045 [http-nio-8085-exec-1] DEBUG c.a.q.d.U.queryExistUser -==> Parameters: 2341234(String)
+2022-06-02 23:53:33.045 [http-nio-8085-exec-1] DEBUG c.a.q.d.U.queryExistUser -==> Parameters: 2341234(String)
+2022-06-02 23:53:33.046 [http-nio-8085-exec-1] DEBUG c.a.q.d.U.queryExistUser -<==      Total: 1
+2022-06-02 23:53:33.046 [http-nio-8085-exec-1] DEBUG c.a.q.d.U.queryExistUser -<==      Total: 1
+2022-06-02 23:53:33.049 [http-nio-8085-exec-1] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==>  Preparing: insert into user_info ( id, username, password, start_time, stop_time, status, created_by, creation_date, last_updated_by, last_update_date ) values ( ?, ?, ?, ?, ?, 1, ?, ?, ?, ? )
+2022-06-02 23:53:33.049 [http-nio-8085-exec-1] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==>  Preparing: insert into user_info ( id, username, password, start_time, stop_time, status, created_by, creation_date, last_updated_by, last_update_date ) values ( ?, ?, ?, ?, ?, 1, ?, ?, ?, ? )
+2022-06-02 23:53:33.051 [http-nio-8085-exec-1] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==> Parameters: 9c49e04378cd4a98b77eee9cae0baf5a(String), 2341234(String), 2134(String), 2022-06-02 23:53:29.0(Timestamp), 2022-07-02 23:53:29.0(Timestamp), admin(String), 2022-06-02 23:53:33.0(Timestamp), admin(String), 2022-06-02 23:53:33.0(Timestamp)
+2022-06-02 23:53:33.051 [http-nio-8085-exec-1] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==> Parameters: 9c49e04378cd4a98b77eee9cae0baf5a(String), 2341234(String), 2134(String), 2022-06-02 23:53:29.0(Timestamp), 2022-07-02 23:53:29.0(Timestamp), admin(String), 2022-06-02 23:53:33.0(Timestamp), admin(String), 2022-06-02 23:53:33.0(Timestamp)
+2022-06-02 23:53:33.056 [http-nio-8085-exec-1] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -<==    Updates: 1
+2022-06-02 23:53:33.056 [http-nio-8085-exec-1] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -<==    Updates: 1
+2022-06-02 23:54:29.063 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -==>  Preparing: SELECT id,username,`password`,status FROM user_info WHERE username = ? AND status = "1"
+2022-06-02 23:54:29.063 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -==>  Preparing: SELECT id,username,`password`,status FROM user_info WHERE username = ? AND status = "1"
+2022-06-02 23:54:29.075 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -==> Parameters: admin(String)
+2022-06-02 23:54:29.075 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -==> Parameters: admin(String)
+2022-06-02 23:54:29.086 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -<==      Total: 1
+2022-06-02 23:54:29.086 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -<==      Total: 1
+2022-06-02 23:54:36.183 [http-nio-8085-exec-4] DEBUG c.a.q.d.U.queryExistUser -==>  Preparing: SELECT count(1) FROM user_info where username = ?
+2022-06-02 23:54:36.183 [http-nio-8085-exec-4] DEBUG c.a.q.d.U.queryExistUser -==>  Preparing: SELECT count(1) FROM user_info where username = ?
+2022-06-02 23:54:36.184 [http-nio-8085-exec-4] DEBUG c.a.q.d.U.queryExistUser -==> Parameters: 1234(String)
+2022-06-02 23:54:36.184 [http-nio-8085-exec-4] DEBUG c.a.q.d.U.queryExistUser -==> Parameters: 1234(String)
+2022-06-02 23:54:36.185 [http-nio-8085-exec-4] DEBUG c.a.q.d.U.queryExistUser -<==      Total: 1
+2022-06-02 23:54:36.185 [http-nio-8085-exec-4] DEBUG c.a.q.d.U.queryExistUser -<==      Total: 1
+2022-06-02 23:54:36.188 [http-nio-8085-exec-4] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==>  Preparing: insert into user_info ( id, username, password, start_time, stop_time, status, created_by, creation_date, last_updated_by, last_update_date ) values ( ?, ?, ?, ?, ?, 1, ?, ?, ?, ? )
+2022-06-02 23:54:36.188 [http-nio-8085-exec-4] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==>  Preparing: insert into user_info ( id, username, password, start_time, stop_time, status, created_by, creation_date, last_updated_by, last_update_date ) values ( ?, ?, ?, ?, ?, 1, ?, ?, ?, ? )
+2022-06-02 23:54:36.191 [http-nio-8085-exec-4] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==> Parameters: ad9fe948b3bf437aaeec99ae6f2b36f5(String), 1234(String), 234(String), 2022-06-02 23:54:33.0(Timestamp), 2022-07-02 23:54:33.0(Timestamp), admin(String), 2022-06-02 23:54:36.0(Timestamp), admin(String), 2022-06-02 23:54:36.0(Timestamp)
+2022-06-02 23:54:36.191 [http-nio-8085-exec-4] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==> Parameters: ad9fe948b3bf437aaeec99ae6f2b36f5(String), 1234(String), 234(String), 2022-06-02 23:54:33.0(Timestamp), 2022-07-02 23:54:33.0(Timestamp), admin(String), 2022-06-02 23:54:36.0(Timestamp), admin(String), 2022-06-02 23:54:36.0(Timestamp)
+2022-06-02 23:54:36.196 [http-nio-8085-exec-4] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -<==    Updates: 1
+2022-06-02 23:54:36.196 [http-nio-8085-exec-4] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -<==    Updates: 1
+2022-06-02 23:55:15.433 [http-nio-8085-exec-9] DEBUG c.a.q.d.U.queryExistUser -==>  Preparing: SELECT count(1) FROM user_info where username = ?
+2022-06-02 23:55:15.433 [http-nio-8085-exec-9] DEBUG c.a.q.d.U.queryExistUser -==>  Preparing: SELECT count(1) FROM user_info where username = ?
+2022-06-02 23:55:15.434 [http-nio-8085-exec-9] DEBUG c.a.q.d.U.queryExistUser -==> Parameters: asd(String)
+2022-06-02 23:55:15.434 [http-nio-8085-exec-9] DEBUG c.a.q.d.U.queryExistUser -==> Parameters: asd(String)
+2022-06-02 23:55:15.434 [http-nio-8085-exec-9] DEBUG c.a.q.d.U.queryExistUser -<==      Total: 1
+2022-06-02 23:55:15.434 [http-nio-8085-exec-9] DEBUG c.a.q.d.U.queryExistUser -<==      Total: 1
+2022-06-02 23:55:15.435 [http-nio-8085-exec-9] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==>  Preparing: insert into user_info ( id, username, password, start_time, stop_time, status, created_by, creation_date, last_updated_by, last_update_date ) values ( ?, ?, ?, ?, ?, 1, ?, ?, ?, ? )
+2022-06-02 23:55:15.435 [http-nio-8085-exec-9] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==>  Preparing: insert into user_info ( id, username, password, start_time, stop_time, status, created_by, creation_date, last_updated_by, last_update_date ) values ( ?, ?, ?, ?, ?, 1, ?, ?, ?, ? )
+2022-06-02 23:55:15.436 [http-nio-8085-exec-9] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==> Parameters: 4193c2785d1f4e9da66727f10d5946ec(String), asd(String), fdsa(String), 2022-06-02 23:55:06.0(Timestamp), 2022-07-02 23:55:06.0(Timestamp), admin(String), 2022-06-02 23:55:15.0(Timestamp), admin(String), 2022-06-02 23:55:15.0(Timestamp)
+2022-06-02 23:55:15.436 [http-nio-8085-exec-9] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==> Parameters: 4193c2785d1f4e9da66727f10d5946ec(String), asd(String), fdsa(String), 2022-06-02 23:55:06.0(Timestamp), 2022-07-02 23:55:06.0(Timestamp), admin(String), 2022-06-02 23:55:15.0(Timestamp), admin(String), 2022-06-02 23:55:15.0(Timestamp)
+2022-06-02 23:55:15.441 [http-nio-8085-exec-9] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -<==    Updates: 1
+2022-06-02 23:55:15.441 [http-nio-8085-exec-9] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -<==    Updates: 1
+2022-06-02 23:56:01.670 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.queryExistUser -==>  Preparing: SELECT count(1) FROM user_info where username = ?
+2022-06-02 23:56:01.670 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.queryExistUser -==>  Preparing: SELECT count(1) FROM user_info where username = ?
+2022-06-02 23:56:01.683 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.queryExistUser -==> Parameters: 123324(String)
+2022-06-02 23:56:01.683 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.queryExistUser -==> Parameters: 123324(String)
+2022-06-02 23:56:01.694 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.queryExistUser -<==      Total: 1
+2022-06-02 23:56:01.694 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.queryExistUser -<==      Total: 1
+2022-06-02 23:56:01.698 [http-nio-8085-exec-2] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==>  Preparing: insert into user_info ( id, username, password, start_time, stop_time, status, created_by, creation_date, last_updated_by, last_update_date ) values ( ?, ?, ?, ?, ?, 1, ?, ?, ?, ? )
+2022-06-02 23:56:01.698 [http-nio-8085-exec-2] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==>  Preparing: insert into user_info ( id, username, password, start_time, stop_time, status, created_by, creation_date, last_updated_by, last_update_date ) values ( ?, ?, ?, ?, ?, 1, ?, ?, ?, ? )
+2022-06-02 23:56:01.700 [http-nio-8085-exec-2] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==> Parameters: 25e343c959bc4fe2bae31c0f8496c325(String), 123324(String), 2341(String), 2022-06-02 23:55:57.0(Timestamp), 2022-07-02 23:55:57.0(Timestamp), admin(String), 2022-06-02 23:56:01.0(Timestamp), admin(String), 2022-06-02 23:56:01.0(Timestamp)
+2022-06-02 23:56:01.700 [http-nio-8085-exec-2] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==> Parameters: 25e343c959bc4fe2bae31c0f8496c325(String), 123324(String), 2341(String), 2022-06-02 23:55:57.0(Timestamp), 2022-07-02 23:55:57.0(Timestamp), admin(String), 2022-06-02 23:56:01.0(Timestamp), admin(String), 2022-06-02 23:56:01.0(Timestamp)
+2022-06-02 23:56:01.705 [http-nio-8085-exec-2] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -<==    Updates: 1
+2022-06-02 23:56:01.705 [http-nio-8085-exec-2] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -<==    Updates: 1
+2022-06-02 23:57:06.724 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -==>  Preparing: SELECT id,username,`password`,status FROM user_info WHERE username = ? AND status = "1"
+2022-06-02 23:57:06.724 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -==>  Preparing: SELECT id,username,`password`,status FROM user_info WHERE username = ? AND status = "1"
+2022-06-02 23:57:06.741 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -==> Parameters: admin(String)
+2022-06-02 23:57:06.741 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -==> Parameters: admin(String)
+2022-06-02 23:57:06.762 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -<==      Total: 1
+2022-06-02 23:57:06.762 [http-nio-8085-exec-2] DEBUG c.a.q.d.U.selectUserInfo -<==      Total: 1
+2022-06-02 23:57:24.722 [http-nio-8085-exec-6] DEBUG c.a.q.d.U.queryExistUser -==>  Preparing: SELECT count(1) FROM user_info where username = ?
+2022-06-02 23:57:24.722 [http-nio-8085-exec-6] DEBUG c.a.q.d.U.queryExistUser -==>  Preparing: SELECT count(1) FROM user_info where username = ?
+2022-06-02 23:57:24.722 [http-nio-8085-exec-6] DEBUG c.a.q.d.U.queryExistUser -==> Parameters: 234(String)
+2022-06-02 23:57:24.722 [http-nio-8085-exec-6] DEBUG c.a.q.d.U.queryExistUser -==> Parameters: 234(String)
+2022-06-02 23:57:24.725 [http-nio-8085-exec-6] DEBUG c.a.q.d.U.queryExistUser -<==      Total: 1
+2022-06-02 23:57:24.725 [http-nio-8085-exec-6] DEBUG c.a.q.d.U.queryExistUser -<==      Total: 1
+2022-06-02 23:57:24.731 [http-nio-8085-exec-6] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==>  Preparing: insert into user_info ( id, username, password, start_time, stop_time, status, created_by, creation_date, last_updated_by, last_update_date ) values ( ?, ?, ?, ?, ?, 1, ?, ?, ?, ? )
+2022-06-02 23:57:24.731 [http-nio-8085-exec-6] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==>  Preparing: insert into user_info ( id, username, password, start_time, stop_time, status, created_by, creation_date, last_updated_by, last_update_date ) values ( ?, ?, ?, ?, ?, 1, ?, ?, ?, ? )
+2022-06-02 23:57:24.737 [http-nio-8085-exec-6] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==> Parameters: a8cac3305b8844c98db7fd060d725a39(String), 234(String), 1234(String), 2022-06-02 23:57:21.0(Timestamp), 2022-07-02 23:57:21.0(Timestamp), admin(String), 2022-06-02 23:57:24.0(Timestamp), admin(String), 2022-06-02 23:57:24.0(Timestamp)
+2022-06-02 23:57:24.737 [http-nio-8085-exec-6] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==> Parameters: a8cac3305b8844c98db7fd060d725a39(String), 234(String), 1234(String), 2022-06-02 23:57:21.0(Timestamp), 2022-07-02 23:57:21.0(Timestamp), admin(String), 2022-06-02 23:57:24.0(Timestamp), admin(String), 2022-06-02 23:57:24.0(Timestamp)
+2022-06-02 23:57:24.744 [http-nio-8085-exec-6] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -<==    Updates: 1
+2022-06-02 23:57:24.744 [http-nio-8085-exec-6] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -<==    Updates: 1
+2022-06-02 23:59:39.416 [http-nio-8085-exec-3] DEBUG c.a.q.d.U.selectUserInfo -==>  Preparing: SELECT id,username,`password`,status FROM user_info WHERE username = ? AND status = "1"
+2022-06-02 23:59:39.416 [http-nio-8085-exec-3] DEBUG c.a.q.d.U.selectUserInfo -==>  Preparing: SELECT id,username,`password`,status FROM user_info WHERE username = ? AND status = "1"
+2022-06-02 23:59:39.432 [http-nio-8085-exec-3] DEBUG c.a.q.d.U.selectUserInfo -==> Parameters: admin(String)
+2022-06-02 23:59:39.432 [http-nio-8085-exec-3] DEBUG c.a.q.d.U.selectUserInfo -==> Parameters: admin(String)
+2022-06-02 23:59:39.448 [http-nio-8085-exec-3] DEBUG c.a.q.d.U.selectUserInfo -<==      Total: 1
+2022-06-02 23:59:39.448 [http-nio-8085-exec-3] DEBUG c.a.q.d.U.selectUserInfo -<==      Total: 1
+2022-06-02 23:59:55.358 [http-nio-8085-exec-9] DEBUG c.a.q.d.U.queryExistUser -==>  Preparing: SELECT count(1) FROM user_info where username = ?
+2022-06-02 23:59:55.358 [http-nio-8085-exec-9] DEBUG c.a.q.d.U.queryExistUser -==>  Preparing: SELECT count(1) FROM user_info where username = ?
+2022-06-02 23:59:55.358 [http-nio-8085-exec-9] DEBUG c.a.q.d.U.queryExistUser -==> Parameters: admin(String)
+2022-06-02 23:59:55.358 [http-nio-8085-exec-9] DEBUG c.a.q.d.U.queryExistUser -==> Parameters: admin(String)
+2022-06-02 23:59:55.360 [http-nio-8085-exec-9] DEBUG c.a.q.d.U.queryExistUser -<==      Total: 1
+2022-06-02 23:59:55.360 [http-nio-8085-exec-9] DEBUG c.a.q.d.U.queryExistUser -<==      Total: 1
+2022-06-02 23:59:58.079 [http-nio-8085-exec-10] DEBUG c.a.q.d.U.queryExistUser -==>  Preparing: SELECT count(1) FROM user_info where username = ?
+2022-06-02 23:59:58.079 [http-nio-8085-exec-10] DEBUG c.a.q.d.U.queryExistUser -==>  Preparing: SELECT count(1) FROM user_info where username = ?
+2022-06-02 23:59:58.080 [http-nio-8085-exec-10] DEBUG c.a.q.d.U.queryExistUser -==> Parameters: admin1(String)
+2022-06-02 23:59:58.080 [http-nio-8085-exec-10] DEBUG c.a.q.d.U.queryExistUser -==> Parameters: admin1(String)
+2022-06-02 23:59:58.081 [http-nio-8085-exec-10] DEBUG c.a.q.d.U.queryExistUser -<==      Total: 1
+2022-06-02 23:59:58.081 [http-nio-8085-exec-10] DEBUG c.a.q.d.U.queryExistUser -<==      Total: 1
+2022-06-02 23:59:58.084 [http-nio-8085-exec-10] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==>  Preparing: insert into user_info ( id, username, password, start_time, stop_time, status, created_by, creation_date, last_updated_by, last_update_date ) values ( ?, ?, ?, ?, ?, 1, ?, ?, ?, ? )
+2022-06-02 23:59:58.084 [http-nio-8085-exec-10] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==>  Preparing: insert into user_info ( id, username, password, start_time, stop_time, status, created_by, creation_date, last_updated_by, last_update_date ) values ( ?, ?, ?, ?, ?, 1, ?, ?, ?, ? )
+2022-06-02 23:59:58.086 [http-nio-8085-exec-10] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==> Parameters: f0144f6ec05641449204eb8ed06ee8d7(String), admin1(String), 213(String), 2022-06-02 23:59:45.0(Timestamp), 2022-07-02 23:59:45.0(Timestamp), admin(String), 2022-06-02 23:59:58.0(Timestamp), admin(String), 2022-06-02 23:59:58.0(Timestamp)
+2022-06-02 23:59:58.086 [http-nio-8085-exec-10] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -==> Parameters: f0144f6ec05641449204eb8ed06ee8d7(String), admin1(String), 213(String), 2022-06-02 23:59:45.0(Timestamp), 2022-07-02 23:59:45.0(Timestamp), admin(String), 2022-06-02 23:59:58.0(Timestamp), admin(String), 2022-06-02 23:59:58.0(Timestamp)
+2022-06-02 23:59:58.092 [http-nio-8085-exec-10] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -<==    Updates: 1
+2022-06-02 23:59:58.092 [http-nio-8085-exec-10] DEBUG c.a.q.d.UserEntityMapper.addUserInfo -<==    Updates: 1
