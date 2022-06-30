@@ -53,16 +53,47 @@ function getQuestionnaireInfo(result) {
         if (result.code == "666") {
             $("#questTableBody").empty();
             var data = result.data;
-            //console.log(data)
             if (data.length) {
                 var text = "";
                 var i = 0;
                 for (; i < data.length; i++) {
                     var questionnaireData = data[i];
+                    var dataid=questionnaireData.dataId;
+                    var type='';
+                    // 在校生：2；毕业生：3；教师：4；用人单位：5
+                    if(dataid=="2"){
+                        type='在校生';
+                    }
+                    if(dataid=="3"){
+                        type='毕业生';
+                    }
+                    if(dataid=="4"){
+                        type='教师';
+                    }
+                    if(dataid=="5"){
+                        type='用人单位';
+                    }
+                    //问卷状态
+                    var status=questionnaireData.questionStop;
+                    var statusText='';
+                    if(status=="0"){
+                        statusText='已过期';
+                    }
+                    if(status=="1"){
+                        statusText='开启中';
+                    }
+                    if(status=="2"){
+                        statusText='停止中';
+                    }
+                    if(status=="3"){
+                        statusText='已发布';
+                    }
                     text += "<tr>";
                     text += "<td>" + (i + 1) + "</td>";
                     text += "<td>" + questionnaireData.questionName + "</td>";
                     text += "<td>" + questionnaireData.releaseTime + "</td>";
+                    text += "<td>" + type + "</td>";
+                    text += "<td>" + statusText + "</td>";
                     text += "<td><a id=\"btnEdit" + i + "\"  href=\"javascript:void(0)\" onclick=\"editQuestion(" + "'" + questionnaireData.id + "'" + "," + "'" + questionnaireData.questionName + "'" + "," + "'"
                        + questionnaireData.questionContent + "'" + "," + "'" + questionnaireData.endTime + "'" + "," + "'" + questionnaireData.creationDate + "'" + "," + "'" + questionnaireData.dataId  + "'"+")\">编辑</a><td>";
                     //text += "<td><a id=\"btnEdit" + i + "\" href=\"javascript:void(0)\" onclick=\"editProject(" + "'" + questionnaireData.name + "'" + "," + "'" + projectName + "'" + "," + "'" + projectInfo.project_content + "'" + ")\"><i class=\"icon remind-icon\"></i>编辑</a><td>";
@@ -83,12 +114,12 @@ function editQuestion(id, name, content, endTime, creationDate, dataId) {
         "id": id
     };
     commonAjaxPost(true, '/selectQuestionnaireStatus', data, function (result) {
-        //console.log(result);
-        //5：问卷未发布 1：问卷进行中
         if (result.code == "666") {
-            if (result.data != "5") {
+            if (result.data == "3") {
                 layer.msg('问卷已发布，不可修改', {icon: 2});
-            } else if (result.data == "5") {
+            } else if (result.data== "1"){
+                layer.msg('请停止问卷后修改', {icon: 2});
+            }else{
                 deleteCookie("questionId");
                 deleteCookie("questionName");
                 deleteCookie("questionContent");
@@ -102,42 +133,6 @@ function editQuestion(id, name, content, endTime, creationDate, dataId) {
                 window.location.href = 'editQuestionnaire.html'
             }
         }
-        /*
-        if (result.code == "666") {
-            if (result.data == "1") {
-                if ($("#operationAll" + m + n).children("a:first-child").text() == '开启') {
-                    //judgeIfChangeStatus(m, n);
-                }
-                layer.msg('问卷运行中，不可修改', {icon: 2});
-            } else if (result.data != "1") {
-               // commonAjaxPost(true, '/selectQuestSendStatus', {id: id}, function (result) {
-                    //发送过问卷
-                //    if (result.code == "40003") {
-                 //       setCookie("ifEditQuestType", "false");
-                 //   } else if (result.code == "666") {         //未发送过问卷
-                 //       setCookie("ifEditQuestType", "true");
-                 //   }
-              //  });
-                deleteCookie("questionId");
-                deleteCookie("questionName");
-                deleteCookie("questionContent");
-                deleteCookie("endTime");
-                setCookie("questionId", id);
-                setCookie("questionName", name);
-                setCookie("questionContent", content);
-                setCookie("endTime", endTime);
-                setCookie("creationDate", creationDate);
-                setCookie("dataId", dataId);
-                //window.location.href = 'editQuestionnaire.html'
-            }
-        } else if (result.code == "333") {
-            layer.msg(result.message, {icon: 2});
-            setTimeout(function () {
-                window.location.href = 'login.html';
-            }, 1000)
-        } else {
-            layer.msg(result.message, {icon: 2})
-        }*/
     });
 }
 

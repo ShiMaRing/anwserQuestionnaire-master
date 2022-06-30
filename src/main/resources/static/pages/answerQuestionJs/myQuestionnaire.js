@@ -127,7 +127,7 @@ function getQuestionnaireInfoByProjectId(name, result) {
                     var questionnaireStatus = questionnaireData.questionStop;
                     var status= "";
                     if (questionnaireStatus == "0") {
-                        status = "已过期";
+                        status = "已结束";
                     }
                     else if (questionnaireStatus == "1") {
                         status = "进行中";
@@ -163,13 +163,11 @@ function getQuestionnaireInfoByProjectId(name, result) {
                     text += "<button type=\"button\" id=\"btn_look\" onclick=\"deleteQuestionnaire(" + "'" + questionnaireData.id + "')\" class=\"btn btn-danger-g ajax-link\">删除问卷</button>&nbsp;&nbsp;";
 
                     if (questionnaireStatus == "2") {
-                        text += "<button type=\"button\" id=\"btn_look\" onclick=\"editUserPage(" + "'" + questionnaireData.id + "')\" class=\"btn btn-success-g ajax-link\">开启</button>&nbsp;&nbsp;";
+                        text += "<button type=\"button\" id=\"btn_look\" onclick=\"editQuestionnaireStatus(" + "'" + questionnaireData.id + "'" + "," + "'1'" + ")\" class=\"btn btn-success-g ajax-link\">开启</button>&nbsp;&nbsp;";
                     } else if (questionnaireStatus == "5") {
                         text += "<button type=\"button\" id=\"btn_look\" onclick=\"sendQustionnaire(" + "'" + questionnaireData.id +"'"+ ","+"'"+questionnaireData.questionName+"'"+ ","+"'"+questionnaireData.dataId+"'"+")\" class=\"btn btn-default-g ajax-link\">发布></button>&nbsp;&nbsp;";
-                    } else if (questionnaireStatus == "1") {
-                        text += "<button type=\"button\" id=\"btn_look\" onclick=\"editUserPage(" + "'" + questionnaireData.id + "')\" class=\"btn btn-default-g ajax-link\">暂停</button>&nbsp;&nbsp;";
-                    } else {
-                        text += "<button type=\"button\" id=\"btn_look\" onclick=\"editUserPage(" + "'" + questionnaireData.id + "')\" class=\"btn btn-danger-g ajax-link\">关闭问卷</button>&nbsp;&nbsp;";
+                    } else if(questionnaireStatus == "1") {
+                        text += "<button type=\"button\" id=\"btn_look\" onclick=\"editQuestionnaireStatus(" + "'" + questionnaireData.id + "'" + "," + "'2'" + ")\" class=\"btn btn-default-g ajax-link\">暂停</button>&nbsp;&nbsp;";
                     }
                     text += "    </td>";
                     text += "</tr>";
@@ -215,6 +213,19 @@ function deleteProject(projectId) {
     });
 }
 
+//修改问卷状态
+function editQuestionnaireStatus(id, status) {
+    var data = {
+        "id": id,
+        "questionStop": status
+    }
+    commonAjaxPost(true, '/modifyQuestionnaireStatus', data, function (result) {
+        if(result.code == "666"){
+            layer.msg(result.message, {icon: 1});
+            getProjectQuest();
+        }
+    })
+}
 
 // 编辑项目，在问卷未发布的状态下才可以编辑项目信息
 function editProject(id, name, content) {
@@ -330,6 +341,7 @@ function sendQustionnaire(id,name,dataId) {
         setCookie("dataId", dataId);
        window.location.href = "sendQuestionnaire.html"
     });
+
 }
 
 

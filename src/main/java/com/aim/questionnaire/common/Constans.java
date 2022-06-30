@@ -42,6 +42,7 @@ public class Constans {
     public static final String COPY_EXIT_DELETE_MESSAGE = "问卷已经发布，不可删除";
     public static final String COPY_EXIT_UPDATE_MESSAGE = "问卷已经发布，不可修改";
     public static final String CANCEL_PROJECT_MESSAGE = "取消项目关联成功";
+    public static final String UPDATE_STATUS_MESSAGE = "状态修改成功";
 
     public static final String ANSWER_ZERO_MESSAGE = "此问卷没有答题人"; //问卷没有答题人
 

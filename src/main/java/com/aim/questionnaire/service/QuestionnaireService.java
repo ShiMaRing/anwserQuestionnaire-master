@@ -114,4 +114,8 @@ public class QuestionnaireService {
         PageInfo<Map<String,Object>> objectPageInfo = new PageInfo<>(mapList);
         return objectPageInfo;
     }
+
+    public int modifyQuestionnaireStatus(HashMap<String, Object> map) {
+       return questionnaireEntityMapper.modifyQuestionnaireStatus(map);
+    }
 }
