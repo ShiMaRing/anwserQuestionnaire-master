@@ -32,6 +32,9 @@ function queryAllDataType() {
     var url = '/admin/queryAllDataType';
     var da = {'parentId': '1'};
     commonAjaxPost(true, url, da, function (result) {
+        result.code="666"
+
+
         console.log(result);
         if (result.code == "666") {
             var belongType = document.getElementById('belongType');

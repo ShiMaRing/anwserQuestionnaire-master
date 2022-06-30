@@ -103,6 +103,7 @@ public class ProjectService {
       return 0;
     } else {
       projectEntityMapper.deleteProjectById(projectEntity.getId());
+      projectEntityMapper.deleteLink(projectEntity.getId());
       return 1;
     }
   }

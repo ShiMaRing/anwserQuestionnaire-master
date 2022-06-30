@@ -78,4 +78,5 @@ public interface ProjectEntityMapper {
      */
     String selectProjectIdByName(String projectName);
 
+    void deleteLink(String id);
 }

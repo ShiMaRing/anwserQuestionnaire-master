@@ -410,9 +410,9 @@
     <select id="queryAllQuestionnaireList" resultType="java.util.Map">
         SELECT *
         FROM questionnaire_info
+        WHERE question_stop != '4' and question_stop!='1' and (project_id='' ||project_id=null)
         <if test="questionName != null">
-        WHERE question_name LIKE concat('%',#{questionName},'%')
-           AND question_stop != '0'
+          and question_name LIKE concat('%',#{questionName},'%')
         </if>
     </select>
 
@@ -554,7 +554,7 @@
         SELECT count(*)
         FROM questionnaire_info
         WHERE project_id = #{projectId,jdbcType=VARCHAR}
-          AND question_stop = '3'|| question_stop = '1'
+          AND (question_stop = '3'|| question_stop = '1')
     </select>
 
     <!--添加发送问卷方式-->
@@ -610,7 +610,7 @@
         as questionContent
         FROM questionnaire_info
         WHERE
-        question_stop = '0'
+        question_stop != '4'
         <if test="dataId != null">
             AND data_id = #{dataId,jdbcType = VARCHAR}
         </if>
@@ -620,6 +620,9 @@
     <update id="modifyQuestionnaire" parameterType="map">
         update questionnaire_info
         <set>
+            <if test="projectId != null">
+                project_id = #{projectId,jdbcType=VARCHAR},
+            </if>
             <if test="questionName != null">
                 question_name = #{questionName,jdbcType=VARCHAR},
             </if>
@@ -846,7 +849,7 @@
     <select id="queryAllQuestionnaire" resultType="java.util.Map">
         select id as questionId, question_name as questionName
         from questionnaire_info
-        where question_stop = '1'
+        where question_stop = '2' and (project_id = null||project_id ='')
     </select>
 
     <!--批量插入问卷答题详情-->

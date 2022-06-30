@@ -284,7 +284,7 @@ function cancelConnection(id) {
         }
         commonAjaxPost(true, '/cancelQuestionnaireProject', data, function (result) {
             console.log(result);
-            //5：问卷未发布 1：问卷进行中
+
             if (result.code == "666") {
                 layer.msg(result.message, {icon: 1});
                 getProjectQuest();

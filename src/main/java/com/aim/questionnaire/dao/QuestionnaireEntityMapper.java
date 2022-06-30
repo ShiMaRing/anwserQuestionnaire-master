@@ -174,6 +174,7 @@ public interface QuestionnaireEntityMapper {
    */
   int queryReleaseQuestionnaireCount(QuestionnaireEntity questionnaireEntity);
 
+
   /**
    * 查询问卷的发送问卷的人数
    *

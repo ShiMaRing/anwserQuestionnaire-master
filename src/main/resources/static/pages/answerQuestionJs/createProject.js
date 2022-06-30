@@ -239,7 +239,7 @@ function addQuestionnaire(id) {
     var projectId = getCookie("projectId");
     //添加问卷到项目中
     var data = {
-        "id": id,
+        "questionId": id,
         "projectId": projectId
     }
     var url= "/addQuestionnaireProject";

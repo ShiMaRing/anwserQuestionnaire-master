@@ -135,6 +135,12 @@
         where id=#{id}
     </delete>
 
+    <delete id="deleteLink" parameterType="java.lang.String">
+        delete
+        from questionnaire.questionnaire_info
+        where questionnaire_info.project_id=#{id}
+    </delete>
+
     <!--查询项目列表-->
     <select id="queryProjectList" parameterType="com.aim.questionnaire.dao.entity.ProjectEntity" resultType="map">
         select id,user_id,project_name,project_content,created_by,creation_date,last_updated_by,last_update_date

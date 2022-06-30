@@ -26,8 +26,8 @@ public class Constans {
      * Descriptions:项目状态码
      */
     public static final String PROJECT_EXIST_CODE = "222"; //项目删除失败状态码
-    public static final String PROJECT_EXIST_MESSAGE="项目有发布中的(历史)问卷，不可以删除";
-    public static final String QUESTION_EXIST_MESSAGE="项目有发布中的问卷，不可以编辑";
+    public static final String PROJECT_EXIST_MESSAGE="项目有进行中问卷，不可以删除";
+    public static final String QUESTION_EXIST_MESSAGE="项目有进行中的问卷，不可以编辑";
     public static final String QUESTION_COUNT_MESSAGE="项目可以编辑";
     public static final String PROJECTNAME_EXIT_MESSAGE = "项目名称重复";
 
@@ -39,8 +39,8 @@ public class Constans {
     public static final String COPY_MESSAGE = "复制成功";
     public static final String COPY_EXIT_MESSAGE = "问卷发布中，不可复制";
     public static final String NAME_EXIT_MESSAGE = "问卷名称重复";
-    public static final String COPY_EXIT_DELETE_MESSAGE = "问卷已经发布，不可删除";
-    public static final String COPY_EXIT_UPDATE_MESSAGE = "问卷已经发布，不可修改";
+    public static final String COPY_EXIT_DELETE_MESSAGE = "问卷进行中或已发布，不可删除";
+    public static final String COPY_EXIT_UPDATE_MESSAGE = "问卷进行中或已发布，不可修改";
     public static final String CANCEL_PROJECT_MESSAGE = "取消项目关联成功";
     public static final String UPDATE_STATUS_MESSAGE = "状态修改成功";
 

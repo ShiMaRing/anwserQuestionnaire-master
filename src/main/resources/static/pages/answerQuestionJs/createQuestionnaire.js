@@ -82,7 +82,8 @@ function importQuestion(type) {
   setCookie('hORt', type);
   dataId = $('#belongType').val();
   // type 1:历史问卷模板  2：调查类型模板
-  if (type == 1) {
+  if (type == '1') {
+
     var url = '/queryHistoryQuestionnaire';
     var da = {
       'dataId': dataId
@@ -123,7 +124,7 @@ function viewModal(questionId) {
 
 //查询历史模板的成功回调
 function queryHistoryQuestionnaireSuccess(res) {
-  console.log(res);
+
   if (res.code == "666") {
     $("#typeQuestion").css("display", "none");
     if (res.data.length == 0) {
@@ -140,7 +141,7 @@ function queryHistoryQuestionnaireSuccess(res) {
           '                    <div class="details-wrapper pull-left">' +
           '                        <div class="details-title">' +
           '                            <span class="pull-left">'
-          + res.data[i].questionName + '</span>' + '</br>'
+          + res.data[i].questionName + '</span>' +
           '                            <span class="pull-left">'
           + res.data[i].questionContent + '</span>' +
           '                        </div>' +
@@ -150,6 +151,7 @@ function queryHistoryQuestionnaireSuccess(res) {
           + '"' + res.data[i].id + '"' + ',' + '"' + res.data[i].questionName
           + '"' + ',' + '"' + res.data[i].questionContent + '"' + ')\'>导入</a>' +
           '                </div>';
+
       $("#historyQuestion").append(historyModal_div);
     }
   } else if (res.code == "333") {

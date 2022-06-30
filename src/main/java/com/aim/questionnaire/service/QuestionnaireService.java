@@ -9,11 +9,12 @@ import com.aim.questionnaire.dao.entity.ProjectEntity;
 import com.aim.questionnaire.dao.entity.QuestionnaireEntity;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.*;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * Created by wln on 2018\8\6 0006.
@@ -21,142 +22,149 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Service
 public class QuestionnaireService {
 
-    @Autowired
-    private QuestionnaireEntityMapper questionnaireEntityMapper;
-    @Autowired
-    private ProjectEntityMapper projectEntityMapper;
-    @Autowired
-    private UserEntityMapper userEntityMapper;
+  @Autowired
+  private QuestionnaireEntityMapper questionnaireEntityMapper;
+  @Autowired
+  private ProjectEntityMapper projectEntityMapper;
+  @Autowired
+  private UserEntityMapper userEntityMapper;
 
-    /**
-     * 根据项目id查询问卷列表
-     *
-     * @param projectEntity
-     * @return
-     */
-    public List<Map<String, Object>> queryQuestionnaireListById(ProjectEntity projectEntity) {
-        String projectid = projectEntityMapper.selectProjectIdByName(projectEntity.getProjectName());
-        List<Map<String, Object>> resultList = questionnaireEntityMapper.queryQuestionListByProjectId(projectid);
-        return resultList;
+  /**
+   * 根据项目id查询问卷列表
+   *
+   * @param projectEntity
+   * @return
+   */
+  public List<Map<String, Object>> queryQuestionnaireListById(ProjectEntity projectEntity) {
+    String projectid = projectEntityMapper.selectProjectIdByName(projectEntity.getProjectName());
+    List<Map<String, Object>> resultList = questionnaireEntityMapper.queryQuestionListByProjectId(
+        projectid);
+    return resultList;
+  }
+
+  /**
+   * 添加问卷
+   *
+   * @param questionnaireEntityEntity
+   * @return
+   */
+  public int addQuestionnaireInfo(QuestionnaireEntity questionnaireEntityEntity, String user) {
+
+    return 1;
+  }
+
+  /**
+   * 根据问卷id查找问卷状态
+   *
+   * @param questionId
+   * @return
+   */
+  public String queryQuestionnaireIsStopStatus(String questionId) {
+    String status = questionnaireEntityMapper.queryQuestionnaireIsStopStatus(questionId);
+    return status;
+  }
+
+  //取消问卷和项目的关联
+  public int cancelQuestionnaireProject(String questionId) {
+    int status = questionnaireEntityMapper.queryQuestionnaireStatusById(questionId);
+    //问卷进行中
+    if (status == 1 || status == 3) {
+      return 0;
     }
+    return questionnaireEntityMapper.cancelConnectionQuestionnaireProject(questionId);
+  }
 
-    /**
-     * 添加问卷
-     *
-     * @param questionnaireEntityEntity
-     * @return
-     */
-    public int addQuestionnaireInfo(QuestionnaireEntity questionnaireEntityEntity, String user) {
+  //建立问卷和项目的关联
+  public int addQuestionnaireInfo(Map<String, Object> map) {
+    String id = UUIDUtil.getOneUUID();
+    map.put("id", id);
+    //创建时间
+    Date date = DateUtil.getCreateTime();
+    map.put("creationDate", date);
+    map.put("lastUpdateDate", date);
+    //创建人
+    map.put("createdBy", map.get("user"));
+    //修改人
+    map.put("lastUpdatedBy", map.get("user"));
+    //前台传入的时间戳转换
+    String startTimeStr = map.get("startTime").toString();
+    String endTimeStr = map.get("endTime").toString();
+    Date startTime = DateUtil.getMyTime(startTimeStr);
+    Date endTime = DateUtil.getMyTime(endTimeStr);
+    map.put("startTime", startTime);
+    map.put("endTime", endTime);
+    int result = questionnaireEntityMapper.addQuestionnaire((HashMap<String, Object>) map);
+    return 1;
+  }
 
-        return 1;
+  /**
+   * 根据问卷id删除问卷
+   *
+   * @param questionId
+   * @return
+   */
+  public int deleteQuestionnaireInfo(String questionId) {
+    int status = questionnaireEntityMapper.queryQuestionnaireStatusById(questionId);
+    //问卷进行中
+    if (status == 1 || status == 3) {
+      return 0;
     }
+    return questionnaireEntityMapper.deleteByPrimaryKey(questionId);
+  }
 
-    /**
-     * 根据问卷id查找问卷状态
-     *
-     * @param questionId
-     * @return
-     */
-    public String queryQuestionnaireIsStopStatus(String questionId) {
-        String status = questionnaireEntityMapper.queryQuestionnaireIsStopStatus(questionId);
-        return status;
-    }
+  /**
+   * 修改问卷所属项目
+   */
+  public int modifyProjectInQuestionnaire(HashMap<String, Object> map) {
+    return questionnaireEntityMapper.modifyProjectInQuestionnaire(map);
+  }
 
-    //取消问卷和项目的关联
-    public int cancelQuestionnaireProject(String questionId) {
-        int status = questionnaireEntityMapper.queryQuestionnaireStatusById(questionId);
-        //问卷进行中
-        if (status == 1) {
-            return 0;
-        }
-        int result = questionnaireEntityMapper.cancelConnectionQuestionnaireProject(questionId);
-        return 1;
-    }
+  /**
+   * 查询所有问卷的详细信息
+   *
+   * @param map
+   * @return
+   */
+  public PageInfo queryQuestionnaireInfo(Map<String, Object> map) {
+    //分页查询
+    PageHelper.startPage(Integer.parseInt(map.get("pageNum").toString()),
+        Integer.parseInt(map.get("pageSize").toString()));
+    List<Map<String, Object>> mapList = questionnaireEntityMapper.queryAllQuestionnaireList(map);
+    PageInfo<Map<String, Object>> objectPageInfo = new PageInfo<>(mapList);
+    return objectPageInfo;
+  }
 
-    //建立问卷和项目的关联
-    public int addQuestionnaireInfo(Map<String, Object> map) {
-        String id = UUIDUtil.getOneUUID();
-        map.put("id", id);
-        //创建时间
-        Date date = DateUtil.getCreateTime();
-        map.put("creationDate", date);
-        map.put("lastUpdateDate", date);
-        //创建人
-        map.put("createdBy", map.get("user"));
-        //修改人
-        map.put("lastUpdatedBy", map.get("user"));
-        //前台传入的时间戳转换
-        String startTimeStr = map.get("startTime").toString();
-        String endTimeStr = map.get("endTime").toString();
-        Date startTime = DateUtil.getMyTime(startTimeStr);
-        Date endTime = DateUtil.getMyTime(endTimeStr);
-        map.put("startTime",startTime);
-        map.put("endTime",endTime);
-        int result = questionnaireEntityMapper.addQuestionnaire((HashMap<String, Object>) map);
-        return 1;
-    }
+  public int modifyQuestionnaireStatus(HashMap<String, Object> map) {
+    return questionnaireEntityMapper.modifyQuestionnaireStatus(map);
+  }
 
-    /**
-     * 根据问卷id删除问卷
-     *
-     * @param questionId
-     * @return
-     */
-    public int deleteQuestionnaireInfo(String questionId) {
-        int status = questionnaireEntityMapper.queryQuestionnaireStatusById(questionId);
-        //问卷进行中
-        if (status == 1||status == 3) {
-            return 0;
-        }
-        return  questionnaireEntityMapper.deleteByPrimaryKey(questionId);
-    }
+  public int addQuestionnaireProject(Map<String, Object> map) {
+    //直接将双方进行关联
+    return questionnaireEntityMapper.modifyQuestionnaire((HashMap<String, Object>) map);
+  }
 
-    /**
-     * 修改问卷所属项目
-     */
-    public int modifyProjectInQuestionnaire(HashMap<String, Object> map) {
-        return questionnaireEntityMapper.modifyProjectInQuestionnaire(map);
-    }
+  public List<Map<String, Object>> queryHistoryQuestionnaire(Map<String, Object> map) {
+    return questionnaireEntityMapper.queryHistoryQuestionnaire((HashMap<String, Object>) map);
+  }
 
-    /**
-     * 查询所有问卷的详细信息
-     * @param map
-     * @return
-     */
-    public PageInfo queryQuestionnaireInfo(Map<String, Object> map) {
-        //分页查询
-        PageHelper.startPage(Integer.parseInt(map.get("pageNum").toString()), Integer.parseInt(map.get("pageSize").toString()));
-        List<Map<String, Object>> mapList = questionnaireEntityMapper.queryAllQuestionnaireList(map);
-        PageInfo<Map<String,Object>> objectPageInfo = new PageInfo<>(mapList);
-        return objectPageInfo;
-    }
+  public List<Map<String, Object>> queryQuestionnaireMould(Map<String, Object> map) {
+    return questionnaireEntityMapper.queryQuestionnaireMould((String) map.get("dataId"));
+  }
 
-    public int modifyQuestionnaireStatus(HashMap<String, Object> map) {
-       return questionnaireEntityMapper.modifyQuestionnaireStatus(map);
-    }
+  public QuestionnaireEntity queryQuestionnaireAll(String questionId) {
+    return questionnaireEntityMapper.queryQuestionnaireAll(questionId);
+  }
 
-    public int addQuestionnaireProject(Map<String, Object> map) {
-        return 0;
-    }
+  public int modifyQuestionnaire(HashMap<String, Object> map) {
+    String endTimeStr = map.get("endTime").toString();
+    Date endTime = DateUtil.getMyTime(endTimeStr);
+    map.put("endTime", endTime);
+    System.out.println("endtime:  " + endTime);
+    map.put("questionList", map.get("questionList").toString());
+    return questionnaireEntityMapper.modifyQuestionnaire(map);
+  }
 
-    public List<Map<String, Object>> queryHistoryQuestionnaire(Map<String, Object> map) {
-        return questionnaireEntityMapper.queryHistoryQuestionnaire((HashMap<String, Object>) map);
-    }
-
-    public List<Map<String, Object>> queryQuestionnaireMould( Map<String, Object> map) {
-        return questionnaireEntityMapper.queryQuestionnaireMould((String) map.get("dataId"));
-    }
-
-    public QuestionnaireEntity queryQuestionnaireAll(String questionId) {
-      return questionnaireEntityMapper.queryQuestionnaireAll(questionId);
-    }
-
-    public int modifyQuestionnaire(HashMap<String, Object> map) {
-        String endTimeStr = map.get("endTime").toString();
-        Date endTime = DateUtil.getMyTime(endTimeStr);
-        map.put("endTime",endTime);
-        System.out.println("endtime:  "+endTime);
-        map.put("questionList",map.get("questionList").toString());
-        return questionnaireEntityMapper.modifyQuestionnaire(map);
-    }
+  public int modifyQuestionnaireInfo(QuestionnaireEntity questionnaireEntity) {
+    return questionnaireEntityMapper.modifyQuestionnaireInfo(questionnaireEntity);
+  }
 }
