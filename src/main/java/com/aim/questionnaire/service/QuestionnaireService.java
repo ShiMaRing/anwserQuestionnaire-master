@@ -167,4 +167,9 @@ public class QuestionnaireService {
   public int modifyQuestionnaireInfo(QuestionnaireEntity questionnaireEntity) {
     return questionnaireEntityMapper.modifyQuestionnaireInfo(questionnaireEntity);
   }
+
+  public Map<String, String> queryQuestionnaireById(Map<String, Object> map) {
+    return  questionnaireEntityMapper.queryQuestionnaireById(
+        (HashMap<String, Object>) map);
+  }
 }

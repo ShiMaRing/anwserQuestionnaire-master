@@ -421,7 +421,6 @@
         SELECT question_name AS questionName,question_content AS questionContent,question AS questionList
         FROM questionnaire_info
         WHERE id = #{questionId,jdbcType=VARCHAR}
-
     </select>
 
     <select id="queryQuestionnaireAll" parameterType="java.util.Map" resultMap="BaseResultMap">

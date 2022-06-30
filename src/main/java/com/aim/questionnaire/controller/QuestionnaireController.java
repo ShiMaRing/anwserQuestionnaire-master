@@ -25,8 +25,6 @@ public class QuestionnaireController {
   QuestionnaireService questionnaireService;
 
   /**
-   * 根据姓名查询所有问卷
-   *
    * @param map
    * @return
    */
@@ -51,6 +49,30 @@ public class QuestionnaireController {
     }
     return responseEntity;
   }
+
+  @RequestMapping(value = "/queryQuestionnaireById", method = RequestMethod.POST, headers = "Accept=application/json")
+  public HttpResponseEntity queryQuestionnaireById(@RequestBody Map<String, Object> map) {
+    HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+    Object questionId = map.get("questionId");
+    Map<String, String> questionnaireEntity = questionnaireService.queryQuestionnaireById(
+        map);
+    try {
+      if (questionnaireEntity != null) {
+        httpResponseEntity.setCode(Constans.SUCCESS_CODE);
+        httpResponseEntity.setData(questionnaireEntity);
+        httpResponseEntity.setMessage(Constans.STATUS_MESSAGE);
+      } else {
+        httpResponseEntity.setCode(Constans.EXIST_CODE);
+        httpResponseEntity.setData(questionnaireEntity);
+        httpResponseEntity.setMessage(Constans.QUERYFAIL_MESSAGE);
+      }
+    } catch (Exception e) {
+      httpResponseEntity.setCode(Constans.EXIST_CODE);
+      httpResponseEntity.setMessage(Constans.EXIST_MESSAGE);
+    }
+    return httpResponseEntity;
+  }
+
 
   /**
    * 根据项目id查询对应问卷的信息

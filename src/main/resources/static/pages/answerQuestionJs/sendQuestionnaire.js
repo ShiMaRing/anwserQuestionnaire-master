@@ -67,7 +67,7 @@ var columnsForCompany = [{
 
 if (dataId == "2") {
   $("#getDownLoadBtn").prepend(
-      "<a style=\"margin-right: 20px;\" href=\"../在校生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
+      "<a style=\"margin-right: 20px;\" href=\"../在校生上传数 据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
 } else if (dataId == "3") {
   $("#getDownLoadBtn").prepend(
       "<a style=\"margin-right: 20px;\" href=\"../毕业生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");

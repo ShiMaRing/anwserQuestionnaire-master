@@ -21,7 +21,8 @@ $(function () {
     var urlObj = GetRequest();
     if (Object.keys(urlObj).length == 0) {
         setCookie('QuestionId', getCookie("QuestionId"));
-        var da = {'id': getCookie("QuestionId")};
+        var da = {'questionId': getCookie("QuestionId")};
+        questionId=getCookie("QuestionId")
         console.log(getCookie("QuestionId"));
     } else {
         deleteCookie('QuestionId');
@@ -1201,7 +1202,7 @@ function queryQuestionnaireAllSuccess(res) {
         console.log(res.data.questionName);
         $('.questionTitle').text(res.data.questionName); //问卷名称
         $('#pater_desc').html(res.data.questionContent);//问卷说明
-        if (res.data.questionStop == '4' || res.data.questionStop == '0') {
+        if (res.data.questionStop == '4' || res.data.questionStop == '1') {
             endTime = dateChange(res.data.endTime);
             if (getCookie('isEdit') != '1') {
                 deleteCookie('QuestionId');
