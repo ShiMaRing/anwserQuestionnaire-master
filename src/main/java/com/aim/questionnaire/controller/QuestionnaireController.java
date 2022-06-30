@@ -25,6 +25,8 @@ public class QuestionnaireController {
   QuestionnaireService questionnaireService;
 
   /**
+   * 根据姓名查询所有问卷
+   *
    * @param map
    * @return
    */
@@ -49,30 +51,6 @@ public class QuestionnaireController {
     }
     return responseEntity;
   }
-
-  @RequestMapping(value = "/queryQuestionnaireById", method = RequestMethod.POST, headers = "Accept=application/json")
-  public HttpResponseEntity queryQuestionnaireById(@RequestBody Map<String, Object> map) {
-    HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
-    Object questionId = map.get("questionId");
-    Map<String, String> questionnaireEntity = questionnaireService.queryQuestionnaireById(
-        map);
-    try {
-      if (questionnaireEntity != null) {
-        httpResponseEntity.setCode(Constans.SUCCESS_CODE);
-        httpResponseEntity.setData(questionnaireEntity);
-        httpResponseEntity.setMessage(Constans.STATUS_MESSAGE);
-      } else {
-        httpResponseEntity.setCode(Constans.EXIST_CODE);
-        httpResponseEntity.setData(questionnaireEntity);
-        httpResponseEntity.setMessage(Constans.QUERYFAIL_MESSAGE);
-      }
-    } catch (Exception e) {
-      httpResponseEntity.setCode(Constans.EXIST_CODE);
-      httpResponseEntity.setMessage(Constans.EXIST_MESSAGE);
-    }
-    return httpResponseEntity;
-  }
-
 
   /**
    * 根据项目id查询对应问卷的信息
@@ -127,10 +105,9 @@ public class QuestionnaireController {
   public HttpResponseEntity queryQuestionnaireAll(@RequestBody Map<String, Object> map) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
     Object questionId = map.get("questionId");
-    QuestionnaireEntity questionnaireEntity = questionnaireService.queryQuestionnaireAll(
-        (String) questionId);
+    QuestionnaireEntity questionnaireEntity = questionnaireService.queryQuestionnaireAll((String) questionId);
     try {
-      if (questionnaireEntity != null) {
+      if (questionnaireEntity!=null) {
         httpResponseEntity.setCode(Constans.SUCCESS_CODE);
         httpResponseEntity.setData(questionnaireEntity);
         httpResponseEntity.setMessage(Constans.STATUS_MESSAGE);
@@ -197,30 +174,6 @@ public class QuestionnaireController {
     }
     return httpResponseEntity;
   }
-
-
-  @RequestMapping(value = "/modifyQuestionnaireInfo", method = RequestMethod.POST, headers = "Accept=application/json")
-  public HttpResponseEntity modifyQuestionnaireInfo(
-      @RequestBody QuestionnaireEntity questionnaireEntity) {
-    HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
-
-    int status = questionnaireService.modifyQuestionnaireInfo(questionnaireEntity);
-    try {
-      if (status == 1) {
-        httpResponseEntity.setCode(Constans.SUCCESS_CODE);
-        httpResponseEntity.setMessage(Constans.CANCEL_PROJECT_MESSAGE);
-      } else if (status == 0) {
-        httpResponseEntity.setCode(Constans.EXIST_CODE);
-        httpResponseEntity.setMessage(Constans.COPY_EXIT_UPDATE_MESSAGE);
-      }
-    } catch (Exception e) {
-      logger.info("addUserInfo 取消问卷和项目的关联>>>>>>>>>>>" + e.getLocalizedMessage());
-      httpResponseEntity.setCode(Constans.LOGOUT_NO_CODE);
-      httpResponseEntity.setMessage(Constans.EXIST_MESSAGE);
-    }
-    return httpResponseEntity;
-  }
-
 
   /**
    * 建立问卷和项目的关联
@@ -342,4 +295,21 @@ public class QuestionnaireController {
     }
     return httpResponseEntity;
   }
+
+
+
+  //用邮件发布信息
+  @RequestMapping(value = "/addSendQuestionnaire", method = RequestMethod.POST, headers = "Accept=application/json")
+  public HttpResponseEntity addSendQuestionnaire(@RequestBody HashMap<String, Object> map) {
+    HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+      questionnaireService.sendByEmail(map);
+//    int status = questionnaireService.modifyQuestionnaire(map);
+
+    return httpResponseEntity;
+  }
+
+
+
 }
+
+
