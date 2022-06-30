@@ -55,8 +55,11 @@ public class UserService {
      * @return
      */
     public int addUserInfo(Map<String,Object> map) {
+        //检测
         if(map.get("username") != null) {
-            int userResult = userEntityMapper.queryExistUser(map);
+            //去搜索
+            int userResult  =  userEntityMapper.queryExistUser(map);
+
             if(userResult != 0) {
                 //用户名已经存在
                 return 3;
