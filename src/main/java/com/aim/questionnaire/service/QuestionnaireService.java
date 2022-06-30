@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * Created by wln on 2018\8\6 0006.
@@ -140,5 +141,22 @@ public class QuestionnaireService {
 
     public List<Map<String, Object>> queryHistoryQuestionnaire(Map<String, Object> map) {
         return questionnaireEntityMapper.queryHistoryQuestionnaire((HashMap<String, Object>) map);
+    }
+
+    public List<Map<String, Object>> queryQuestionnaireMould( Map<String, Object> map) {
+        return questionnaireEntityMapper.queryQuestionnaireMould((String) map.get("dataId"));
+    }
+
+    public QuestionnaireEntity queryQuestionnaireAll(String questionId) {
+      return questionnaireEntityMapper.queryQuestionnaireAll(questionId);
+    }
+
+    public int modifyQuestionnaire(HashMap<String, Object> map) {
+        String endTimeStr = map.get("endTime").toString();
+        Date endTime = DateUtil.getMyTime(endTimeStr);
+        map.put("endTime",endTime);
+        System.out.println("endtime:  "+endTime);
+        map.put("questionList",map.get("questionList").toString());
+        return questionnaireEntityMapper.modifyQuestionnaire(map);
     }
 }

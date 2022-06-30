@@ -3,6 +3,7 @@ var dataId = '';
 $(function () {
   isLoginFun();
   header();
+  setCookie('dataId',"2")//默認dataID
   $("#ctl01_lblUserName").text(getCookie('userName'));
   projectName = getCookie('projectName');
   $('#belongProject').val(projectName);
@@ -139,7 +140,7 @@ function queryHistoryQuestionnaireSuccess(res) {
           '                    <div class="details-wrapper pull-left">' +
           '                        <div class="details-title">' +
           '                            <span class="pull-left">'
-          + res.data[i].questionName + '</span>' +
+          + res.data[i].questionName + '</span>' + '</br>'
           '                            <span class="pull-left">'
           + res.data[i].questionContent + '</span>' +
           '                        </div>' +
@@ -163,8 +164,7 @@ function queryHistoryQuestionnaireSuccess(res) {
 
 //查询问卷模板的成功回调
 function queryQuestionnaireMouldSuccess(res) {
-  //console.log(res);
-  //if (res.code == "666") {
+  if (res.code == "666") {
   $("#historyQuestion").css("display", "none");
   $("#line").css("display", "block");
   $("#typeQuestion").css("display", "block");
@@ -187,55 +187,34 @@ function queryQuestionnaireMouldSuccess(res) {
       +
       '                </div>';
   $("#typeQuestion").append(createQuestionnaireModal);
-  //console.log(res)
-  //for (var i = 0; i < res.data.length; i++) {
-  // var questionnaireModal_div = '  <div class="figure">' +
-  //     '                    <i class="fa fa-close" style="font-size: 1rem; color: #ccc; position: absolute;right: 7px;top:4px"' +
-  //     '                       onclick=\'deleteModal(this' + ',' + '"' + res.data[i].id + '"' + ')\'></i>' +
-  //     '                    <div class="pic-box icon survey-icon pull-left"></div>' +
-  //     '                    <div class="details-wrapper pull-left" onclick=\'viewModal(' + '"' + res.data[i].id + '"' + ')\'>' +
-  //     '                        <div class="details-title">' +
-  //     '                            <span class="pull-left">' + res.data[i].questionName + '</span>' +
-  //     '                        </div>' +
-  //     // '                        <div class="details-info">丰富题型，强大逻辑</div>' +
-  //     // '                        <div class="details-info">问卷密码，红包抽奖</div>' +
-  //     '                    </div>' +
-  //     '                    <div class="clear dotted-line--solid"></div>' +
-  //     '                    <a href="javascript:void(0)" class="btn btn-blue-frame editModal" onclick=\'editModal(' + '"' + res.data[i].id + '"' + ')\'>编辑</a>' +
-  //     '                    <a href="javascript:void(0)" class="btn btn-blue-frame main__btn--new" style="left:71%" onclick=\'importModal(' + '"' + res.data[i].id + '"' + ',' + '"' + res.data[i].questionName + '"' + ',' + '"' + res.data[i].questionContent + '"'+','+ '"'+getCookie('projectIdForCreate') +'"' + ')\'>导入</a>' +
-  //     '                </div>';
-  // $("#typeQuestion").append(questionnaireModal_div);
+  console.log(res)
+  for (var i = 0; i < res.data.length; i++) {
   var questionnaireModal_div = '  <div class="figure">' +
-      '                    <i class="fa fa-close" style="font-size: 1rem; color: #ccc; position: absolute;right: 7px;top:4px"'
-      +
-      '                       onclick=\'deleteModal(this' + ',' + '"' + 1 + '"'
-      + ')\'></i>' +
-      '                    <div class="pic-box icon survey-icon pull-left"></div>'
-      +
-      '                    <div class="details-wrapper pull-left" onclick=\'viewModal('
-      + '"' + 1 + '"' + ')\'>' +
+      '                    <i class="fa fa-close" style="font-size: 1rem; color: #ccc; position: absolute;right: 7px;top:4px"' +
+      '                       onclick=\'deleteModal(this' + ',' + '"' + res.data[i].id + '"' + ')\'></i>' +
+      '                    <div class="pic-box icon survey-icon pull-left"></div>' +
+      '                    <div class="details-wrapper pull-left" onclick=\'viewModal(' + '"' + res.data[i].id + '"' + ')\'>' +
       '                        <div class="details-title">' +
-      '                            <span class="pull-left">测试</span>' +
+      '                            <span class="pull-left">' + res.data[i].questionName + '</span>' +
       '                        </div>' +
       // '                        <div class="details-info">丰富题型，强大逻辑</div>' +
       // '                        <div class="details-info">问卷密码，红包抽奖</div>' +
       '                    </div>' +
       '                    <div class="clear dotted-line--solid"></div>' +
-      '                    <a href="javascript:void(0)" class="btn btn-blue-frame editModal" onclick=\'editModal('
-      + '"' + 1 + '"' + ')\'>编辑</a>' +
-      '                    <a href="javascript:void(0)" class="btn btn-blue-frame main__btn--new" style="left:71%" onclick=\'importModal('
-      + '"' + 1 + '"' + ',' + '测试' + ',' + '测试' + ',' + '测试' + ')\'>导入</a>' +
+      '                    <a href="javascript:void(0)" class="btn btn-blue-frame editModal" onclick=\'editModal(' + '"' + res.data[i].id + '"' + ')\'>编辑</a>' +
+      '                    <a href="javascript:void(0)" class="btn btn-blue-frame main__btn--new" style="left:71%" onclick=\'importModal(' + '"' + res.data[i].id + '"' + ',' + '"' + res.data[i].questionName + '"' + ',' + '"' + res.data[i].questionContent + '"'+','+ '"'+getCookie('projectIdForCreate') +'"' + ')\'>导入</a>' +
       '                </div>';
   $("#typeQuestion").append(questionnaireModal_div);
-  //}
-  // } else if (res.code == "333") {
-  //     layer.msg(res.message, {icon: 2});
-  //     setTimeout(function () {
-  //         window.location.href = 'login.html';
-  //     }, 1000)
-  // } else {
-  //     layer.msg(res.message, {icon: 2})
-  // }
+
+  }
+  } else if (res.code == "333") {
+      layer.msg(res.message, {icon: 2});
+      setTimeout(function () {
+          window.location.href = 'login.html';
+      }, 1000)
+  } else {
+      layer.msg(res.message, {icon: 2})
+  }
 }
 
 //创建模板
@@ -286,16 +265,18 @@ function editModal(questionId) {
 
 //导入模板
 function importModal(questionId, questionName, questionContent, projectId) {
+  deleteCookie('TQuestionId');
   deleteCookie('QuestionId');
   deleteCookie('isEdit');
   deleteCookie('TQuestionName');
   deleteCookie('TQuestionContent');
-  //2为导入
+  //2为导入,导入的时候需要获取一下内容
   setCookie('isEdit', '2');
-  setCookie('QuestionId', questionId);
+  setCookie('QuestionId',questionId);
+  setCookie('TQuestionId', questionId);
   setCookie('TQuestionName', questionName);
   setCookie('TQuestionContent', questionContent);
-  setCookie('projectIdForCreate', projectId);
+  setCookie('projectId', projectId);
   setCookie('dataId', dataId);
   window.location.href = 'namedQuestionnaire.html';
 }

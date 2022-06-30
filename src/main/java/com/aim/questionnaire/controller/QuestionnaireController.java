@@ -80,6 +80,50 @@ public class QuestionnaireController {
     return httpResponseEntity;
   }
 
+  @RequestMapping(value = "/queryQuestionnaireMould", method = RequestMethod.POST, headers = "Accept=application/json")
+  public HttpResponseEntity queryQuestionnaireMould(@RequestBody Map<String, Object> map) {
+    HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+    List<Map<String, Object>> list = questionnaireService.queryQuestionnaireMould(map);
+    try {
+      if (list.size() != 0) {
+        httpResponseEntity.setCode(Constans.SUCCESS_CODE);
+        httpResponseEntity.setData(list);
+        httpResponseEntity.setMessage(Constans.STATUS_MESSAGE);
+      } else {
+        httpResponseEntity.setCode(Constans.EXIST_CODE);
+        httpResponseEntity.setData(null);
+        httpResponseEntity.setMessage(Constans.QUERYFAIL_MESSAGE);
+      }
+    } catch (Exception e) {
+      httpResponseEntity.setCode(Constans.EXIST_CODE);
+      httpResponseEntity.setMessage(Constans.EXIST_MESSAGE);
+    }
+    return httpResponseEntity;
+  }
+
+  @RequestMapping(value = "/queryQuestionnaireAll", method = RequestMethod.POST, headers = "Accept=application/json")
+  public HttpResponseEntity queryQuestionnaireAll(@RequestBody Map<String, Object> map) {
+    HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+    Object questionId = map.get("questionId");
+    QuestionnaireEntity questionnaireEntity = questionnaireService.queryQuestionnaireAll((String) questionId);
+    try {
+      if (questionnaireEntity!=null) {
+        httpResponseEntity.setCode(Constans.SUCCESS_CODE);
+        httpResponseEntity.setData(questionnaireEntity);
+        httpResponseEntity.setMessage(Constans.STATUS_MESSAGE);
+      } else {
+        httpResponseEntity.setCode(Constans.EXIST_CODE);
+        httpResponseEntity.setData(questionnaireEntity);
+        httpResponseEntity.setMessage(Constans.QUERYFAIL_MESSAGE);
+      }
+    } catch (Exception e) {
+      httpResponseEntity.setCode(Constans.EXIST_CODE);
+      httpResponseEntity.setMessage(Constans.EXIST_MESSAGE);
+    }
+    return httpResponseEntity;
+  }
+
+
   /**
    * 查询问卷状态
    *
@@ -180,9 +224,9 @@ public class QuestionnaireController {
   public HttpResponseEntity queryHistoryQuestionnaire(@RequestBody Map<String, Object> map) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
     //找到所有过期模板
-     httpResponseEntity.setData(questionnaireService.queryHistoryQuestionnaire(map));
-     httpResponseEntity.setCode(Constans.SUCCESS_CODE);
-     return httpResponseEntity;
+    httpResponseEntity.setData(questionnaireService.queryHistoryQuestionnaire(map));
+    httpResponseEntity.setCode(Constans.SUCCESS_CODE);
+    return httpResponseEntity;
   }
 
   /**
@@ -232,4 +276,23 @@ public class QuestionnaireController {
     return httpResponseEntity;
   }
 
+
+  @RequestMapping(value = "/modifyQuestionnaire", method = RequestMethod.POST, headers = "Accept=application/json")
+  public HttpResponseEntity modifyQuestionnaire(@RequestBody HashMap<String, Object> map) {
+    HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+
+    int status = questionnaireService.modifyQuestionnaire(map);
+    try {
+      if (status == 1) {
+        httpResponseEntity.setCode(Constans.SUCCESS_CODE);
+        //httpResponseEntity.setData(status);
+        httpResponseEntity.setMessage(Constans.UPDATE_STATUS_MESSAGE);
+      }
+    } catch (Exception e) {
+      logger.info("addUserInfo 根据问卷id删除问卷>>>>>>>>>>>" + e.getLocalizedMessage());
+      httpResponseEntity.setCode(Constans.LOGOUT_NO_CODE);
+      httpResponseEntity.setMessage(Constans.EXIST_MESSAGE);
+    }
+    return httpResponseEntity;
+  }
 }

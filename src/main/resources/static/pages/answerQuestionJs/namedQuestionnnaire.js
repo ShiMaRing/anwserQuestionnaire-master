@@ -119,18 +119,24 @@ function quickCreate() {
     var url = '/addQuestionnaire';
     commonAjaxPost(true, url, da, addQuestionnaireSuccess);
   } else {
-    //导入问卷,需要先拿到所有的问题再导入，不过没时间了就不管了
-    var url = '/addQuestionnaire';
-    da1 = {
-      'questionName': questionName,
-      'questionContent': questionContent,
-      'startTime': dateChange(nowTimeInput),
-      'endTime': dateChange(questionendTime),
-      'questionStop': questionStop,
-      'dataId': getCookie('dataId'),
-      'projectId': projectId
-    };
-    commonAjaxPost(true, url, da1, queryQuestionnaireAllSuccess);
+    //先拿questionid查一下问卷内容
+    var url1='/queryQuestionnaireAll'
+    var questionId={"questionId":getCookie('TQuestionId')}
+    commonAjaxPost(true, url1, questionId, function (res) {
+      var url2 = '/addQuestionnaire';
+      da1 = {
+        'questionName': questionName,
+        'questionContent': questionContent,
+        'startTime': dateChange(nowTimeInput),
+        'endTime': dateChange(questionendTime),
+        'questionStop': questionStop,
+        'dataId': getCookie('dataId'),
+        'projectId': projectId,//新的项目id
+        'question':res.data.question,
+        'questionTitle':res.data.questionTitle
+      };
+      commonAjaxPost(true, url2, da1,addQuestionnaireSuccess );
+    });
   }
 }
 
@@ -139,6 +145,7 @@ function addQuestionnaireSuccess(res) {
   if (res.code == '666') {
     layer.msg(res.message, {icon: 1});
     deleteCookie('dataId');
+
     window.location.href = 'myQuestionnaires.html'
   } else if (res.code == "333") {
     layer.msg(res.message, {icon: 2});

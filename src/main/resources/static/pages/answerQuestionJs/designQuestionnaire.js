@@ -40,11 +40,11 @@ $(function () {
             setCookie('QuestionId', qIdStr);
         }
         questionId = qIdStr;
-        var da = {'id': questionId};
+        var da = {'questionId': questionId};
     }
 
     var url = '/queryQuestionnaireAll';
-    //commonAjaxPost(true, url, da, queryQuestionnaireAllSuccess);
+    commonAjaxPost(true, url, da, queryQuestionnaireAllSuccess);
 
 });
 
@@ -967,7 +967,7 @@ function editFinish() {
             'dataId': dataId,
             'questionName': questionName,
             'questionContent': questionContent,
-            'endTime': ''
+            'endTime': endTime
         };
         var urlQ = '/modifyQuestionnaire';
         commonAjaxPost(true, urlQ, da, addQuestionnaireSuccess)
@@ -1202,14 +1202,15 @@ function queryQuestionnaireAllSuccess(res) {
         $('.questionTitle').text(res.data.questionName); //问卷名称
         $('#pater_desc').html(res.data.questionContent);//问卷说明
         if (res.data.questionStop == '4' || res.data.questionStop == '0') {
+            endTime = dateChange(res.data.endTime);
             if (getCookie('isEdit') != '1') {
                 deleteCookie('QuestionId');
                 judgeQuestionId();
                 $('.questionTitle').text(questionInfo.questionName); //问卷名称
                 $('#pater_desc').html(questionInfo.questionContent);//问卷说明
             }
-        } else if (res.data.questionStop == '5') {
-            endTime = res.data.endTime;
+        } else if (res.data.questionStop == '4') {
+            endTime = dateChange(res.data.endTime);
             startTime = res.data.startTime;
             questionStop = res.data.questionStop;
         }
