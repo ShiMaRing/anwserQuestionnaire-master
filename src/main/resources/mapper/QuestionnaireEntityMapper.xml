@@ -605,9 +605,6 @@
         FROM questionnaire_info
         WHERE
         question_stop = '0'
-        <if test="projectId != null">
-            AND project_id = #{projectId,jdbcType = VARCHAR}
-        </if>
         <if test="dataId != null">
             AND data_id = #{dataId,jdbcType = VARCHAR}
         </if>

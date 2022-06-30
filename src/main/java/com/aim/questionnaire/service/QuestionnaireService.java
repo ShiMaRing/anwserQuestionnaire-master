@@ -137,4 +137,8 @@ public class QuestionnaireService {
     public int addQuestionnaireProject(Map<String, Object> map) {
         return 0;
     }
+
+    public List<Map<String, Object>> queryHistoryQuestionnaire(Map<String, Object> map) {
+        return questionnaireEntityMapper.queryHistoryQuestionnaire((HashMap<String, Object>) map);
+    }
 }

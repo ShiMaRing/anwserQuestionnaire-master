@@ -86,7 +86,7 @@ function importQuestion(type) {
     var da = {
       'dataId': dataId
     };
-    commonAjaxPost(true, urlModal, da1, queryHistoryQuestionnaireSuccess);
+    commonAjaxPost(true, url, da, queryHistoryQuestionnaireSuccess);
   } else {
     var urlModal = '/queryQuestionnaireMould';
     var da1 = {
@@ -140,7 +140,8 @@ function queryHistoryQuestionnaireSuccess(res) {
           '                        <div class="details-title">' +
           '                            <span class="pull-left">'
           + res.data[i].questionName + '</span>' +
-          '                            ' +
+          '                            <span class="pull-left">'
+          + res.data[i].questionContent + '</span>' +
           '                        </div>' +
           '                    </div>' +
           '                    <div class="clear dotted-line--solid"></div>\n' +
@@ -285,7 +286,6 @@ function editModal(questionId) {
 
 //导入模板
 function importModal(questionId, questionName, questionContent, projectId) {
-  debugger;
   deleteCookie('QuestionId');
   deleteCookie('isEdit');
   deleteCookie('TQuestionName');

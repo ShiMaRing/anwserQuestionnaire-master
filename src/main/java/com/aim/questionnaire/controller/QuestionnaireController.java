@@ -174,6 +174,17 @@ public class QuestionnaireController {
     }
     return httpResponseEntity;
   }
+
+  //找到所有过期模板
+  @RequestMapping(value = "/queryHistoryQuestionnaire", method = RequestMethod.POST, headers = "Accept=application/json")
+  public HttpResponseEntity queryHistoryQuestionnaire(@RequestBody Map<String, Object> map) {
+    HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+    //找到所有过期模板
+     httpResponseEntity.setData(questionnaireService.queryHistoryQuestionnaire(map));
+     httpResponseEntity.setCode(Constans.SUCCESS_CODE);
+     return httpResponseEntity;
+  }
+
   /**
    * 根据问卷id删除问卷
    *

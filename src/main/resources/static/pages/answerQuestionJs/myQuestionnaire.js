@@ -161,8 +161,10 @@ function getQuestionnaireInfoByProjectId(name, result) {
                     } else if(questionnaireStatus == "1") {
                         text += "<button type=\"button\" id=\"btn_look\" onclick=\"editQuestionnaireStatus(" + "'" + questionnaireData.id + "'" + "," + "'2'" + ")\" class=\"btn btn-default-g ajax-link\">暂停</button>&nbsp;&nbsp;";
                         text += "<button type=\"button\" id=\"btn_look\" onclick=\"sendQustionnaire(" + "'" + questionnaireData.id + "'" + ","+ "'" + questionnaireData.questionName + "'" + "," + "'" + questionnaireData.dataId + "'" + ")\" class=\"btn btn-success-g ajax-link\">发送</button>&nbsp;&nbsp;";
+                    }else if(questionnaireStatus == "0"){
+                        text += "<button type=\"button\" id=\"btn_look\" disabled=\"true\"  class=\"btn btn-default-g ajax-link\">已过期</button>&nbsp;&nbsp;";
                     }else{
-                        text += "<button type=\"button\" id=\"btn_look\" disabled=\"true\" onclick=\"editQuestionnaireStatus(" + "'" + questionnaireData.id + "'" + "," + "'2'" + ")\" class=\"btn btn-default-g ajax-link\">已发送</button>&nbsp;&nbsp;";
+                        text += "<button type=\"button\" id=\"btn_look\" disabled=\"true\"  class=\"btn btn-default-g ajax-link\">已发送</button>&nbsp;&nbsp;";
                     }
 
                     text += "    </td>";
