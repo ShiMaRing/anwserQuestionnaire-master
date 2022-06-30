@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aim.questionnaire.dao.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.aim.questionnaire.dao.entity.Student">
+    <constructor>
+      <idArg column="t_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="t_student_number" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="t_school" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="t_major" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="t_classroom" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="t_sex" javaType="java.lang.Boolean" jdbcType="BOOLEAN" />
+      <arg column="t_wx" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="t_qq" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="t_phone" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="t_mail" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+
+  <insert id="addStudent" parameterType="com.aim.questionnaire.dao.entity.Student">
+    insert into student
+    (id,student_number,school,major,class,sex,wx,qq,phone,mail)
+    values
+    (
+    #{id},
+    #{student_number},
+    #{school},
+    #{major},
+    #{class},
+    #{sex},
+    #{wx},
+    #{qq},
+    #{phone},
+    #{mail}
+    )
+  </insert>
+
+  <update id="updateUserById" parameterType="com.aim.questionnaire.dao.entity.Student">
+    update student
+    set
+      student_number = #{student_number},
+      school = #{school},
+      major  = #{major},
+      class = #{class},
+      sex = #{sex},
+      wx = #{wx},
+      qq = #{qq},
+      phone = #{phone},
+      mail = #{mail}
+    where id = #{id}
+  </update>
+
+  <select id="selectById" resultType="java.lang.Integer">
+    SELECT
+    count(*)
+    FROM student
+    WHERE id=#{id}
+  </select>
+</mapper>
