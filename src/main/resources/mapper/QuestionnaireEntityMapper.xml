@@ -351,7 +351,7 @@
         SELECT count(*)
         FROM questionnaire_info
         WHERE project_id = #{projectId,jdbcType=VARCHAR}
-          AND question_stop = '4'
+          AND question_stop = '0'
     </select>
 
     <!--根据项目id查询问卷状态-->
@@ -401,7 +401,7 @@
     <select id="queryQuestionnaireList" resultType="java.util.Map">
         SELECT id,project_id as projectId,question_name as questionName, end_time as endTime
         FROM questionnaire_info que
-        WHERE question_stop = '4'
+        WHERE question_stop = '0'
         AND created_by = #{user,jdbcType=CHAR}
         <if test="questionName != null">
             AND question_name LIKE concat('%',#{questionnaireName},'%')
@@ -423,9 +423,7 @@
         SELECT question_name AS questionName,question_content AS questionContent,question AS questionList
         FROM questionnaire_info
         WHERE id = #{questionId,jdbcType=VARCHAR}
-        <!--<if test="questionStop != null">-->
-        <!--AND  question_stop = #{questionStop,jdbcType =VARCHAR}-->
-        <!--</if>-->
+
     </select>
 
     <!--添加问卷-->
@@ -552,7 +550,7 @@
         SELECT count(*)
         FROM questionnaire_info
         WHERE project_id = #{projectId,jdbcType=VARCHAR}
-          AND question_stop = '1'
+          AND question_stop = '3'
     </select>
 
     <!--添加发送问卷方式-->
@@ -599,7 +597,7 @@
         SELECT id, question_name as questionName, question_content as questionContent
         FROM questionnaire_info
         WHERE data_id = #{dataId,jdbcType=VARCHAR}
-          AND question_stop = '0'
+          AND question_stop = '4'
     </select>
 
     <!--查询历史问卷-->
@@ -608,7 +606,7 @@
         as questionContent
         FROM questionnaire_info
         WHERE
-        question_stop = '4'
+        question_stop = '0'
         <if test="projectId != null">
             AND project_id = #{projectId,jdbcType = VARCHAR}
         </if>
@@ -736,7 +734,7 @@
     <select id="selectAllQueStartTime" resultType="java.util.Map">
         SELECT id, start_time as startTime
         FROM questionnaire_info
-        WHERE question_stop = '5'
+        WHERE question_stop != '0'
     </select>
 
     <!--设置问卷过期-->
@@ -764,16 +762,14 @@
         SELECT id, question_name as questionName
         FROM questionnaire_info que
         WHERE created_by = #{user,jdbcType=VARCHAR}
-          AND question_stop != 4
-          AND question_stop != 0
     </select>
 
+
     <!--根据问卷id查找问卷状态-->
-    <select id="queryQuestionnaireStatus" resultType="java.lang.Integer">
-        SELECT count(*)
+    <select id="queryQuestionnaireStatus" resultType="java.lang.String">
+        SELECT question_stop
         FROM questionnaire_info que
         WHERE id = #{questionId,jdbcType=VARCHAR}
-          AND question_stop = 1
     </select>
 
     <!--修改发送人状态-->

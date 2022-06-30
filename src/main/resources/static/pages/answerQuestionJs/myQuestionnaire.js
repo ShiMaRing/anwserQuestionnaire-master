@@ -127,7 +127,7 @@ function getQuestionnaireInfoByProjectId(name, result) {
                     var questionnaireStatus = questionnaireData.questionStop;
                     var status= "";
                     if (questionnaireStatus == "0") {
-                        status = "已结束";
+                        status = "已过期";
                     }
                     else if (questionnaireStatus == "1") {
                         status = "进行中";
@@ -136,13 +136,7 @@ function getQuestionnaireInfoByProjectId(name, result) {
                         status = "已暂停";
                     }
                     else if (questionnaireStatus == "3") {
-                        status = "未知";
-                    }
-                    else if (questionnaireStatus == "4") {
-                        status = "历史问卷";
-                    }
-                    else if (questionnaireStatus == "5") {
-                        status = "未发布";
+                        status = "已发送";
                     }
 
                     text += "<tr  style=\"color:#333333;background-color:White;font-size:14px;height:36px;\">";
@@ -164,11 +158,13 @@ function getQuestionnaireInfoByProjectId(name, result) {
 
                     if (questionnaireStatus == "2") {
                         text += "<button type=\"button\" id=\"btn_look\" onclick=\"editQuestionnaireStatus(" + "'" + questionnaireData.id + "'" + "," + "'1'" + ")\" class=\"btn btn-success-g ajax-link\">开启</button>&nbsp;&nbsp;";
-                    } else if (questionnaireStatus == "5") {
-                        text += "<button type=\"button\" id=\"btn_look\" onclick=\"sendQustionnaire(" + "'" + questionnaireData.id +"'"+ ","+"'"+questionnaireData.questionName+"'"+ ","+"'"+questionnaireData.dataId+"'"+")\" class=\"btn btn-default-g ajax-link\">发布></button>&nbsp;&nbsp;";
                     } else if(questionnaireStatus == "1") {
                         text += "<button type=\"button\" id=\"btn_look\" onclick=\"editQuestionnaireStatus(" + "'" + questionnaireData.id + "'" + "," + "'2'" + ")\" class=\"btn btn-default-g ajax-link\">暂停</button>&nbsp;&nbsp;";
+                        text += "<button type=\"button\" id=\"btn_look\" onclick=\"sendQustionnaire(" + "'" + questionnaireData.id + "'" + ","+ "'" + questionnaireData.questionName + "'" + "," + "'" + questionnaireData.dataId + "'" + ")\" class=\"btn btn-success-g ajax-link\">发送</button>&nbsp;&nbsp;";
+                    }else{
+                        text += "<button type=\"button\" id=\"btn_look\" disabled=\"true\" onclick=\"editQuestionnaireStatus(" + "'" + questionnaireData.id + "'" + "," + "'2'" + ")\" class=\"btn btn-default-g ajax-link\">已发送</button>&nbsp;&nbsp;";
                     }
+
                     text += "    </td>";
                     text += "</tr>";
                 }

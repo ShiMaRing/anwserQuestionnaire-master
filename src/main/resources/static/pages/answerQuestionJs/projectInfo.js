@@ -71,7 +71,7 @@ function getQuestionnaireInfo(result) {
                         type='教师';
                     }
                     if(dataid=="5"){
-                        type='用人单位';
+                        type='公司';
                     }
                     //问卷状态
                     var status=questionnaireData.questionStop;
@@ -88,6 +88,10 @@ function getQuestionnaireInfo(result) {
                     if(status=="3"){
                         statusText='已发布';
                     }
+                    if(status=="4"){
+                        statusText='模板问卷';
+                    }
+
                     text += "<tr>";
                     text += "<td>" + (i + 1) + "</td>";
                     text += "<td>" + questionnaireData.questionName + "</td>";

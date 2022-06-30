@@ -74,8 +74,7 @@ public class QuestionnaireService {
 
     //建立问卷和项目的关联
     public int addQuestionnaireProject(Map<String, Object> map) {
-        int result = questionnaireEntityMapper.addConnectionQuestionnaireProject(map);
-        return 1;
+        return questionnaireEntityMapper.addConnectionQuestionnaireProject(map);
     }
 
     /**
@@ -87,19 +86,17 @@ public class QuestionnaireService {
     public int deleteQuestionnaireInfo(String questionId) {
         int status = questionnaireEntityMapper.queryQuestionnaireStatusById(questionId);
         //问卷进行中
-        if (status == 1||status == 2) {
+        if (status == 1||status == 3) {
             return 0;
         }
-        int result = questionnaireEntityMapper.deleteByPrimaryKey(questionId);
-        return 1;
+        return  questionnaireEntityMapper.deleteByPrimaryKey(questionId);
     }
 
     /**
      * 修改问卷所属项目
      */
     public int modifyProjectInQuestionnaire(HashMap<String, Object> map) {
-        int result = questionnaireEntityMapper.modifyProjectInQuestionnaire(map);
-        return 1;
+        return questionnaireEntityMapper.modifyProjectInQuestionnaire(map);
     }
 
     /**
