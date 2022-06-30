@@ -420,6 +420,10 @@ function layOutSend() {
 
   //短信发送方式
   if (sendType == '0') {
+/*
+    editQuestionnaireStatus(questionId, "3")
+    layer.msg("短信发送成功", {icon: 1});
+    return;*/
 
     if (shortMessageGetTime == '0') {
       sendTime = "";
@@ -476,7 +480,7 @@ function layOutSend() {
               "dataType": "json",
               "contentType": "application/json",
               success: function (result) {
-                editQuestionnaireStatus(questionId, "3")
+
               },
               error: function (jqXHR, textStatus, errorThrown) {
                 //console.log(jqXHR);
@@ -490,6 +494,11 @@ function layOutSend() {
     }
   } else if (sendType == '1') {   //邮箱发送方式
     //邮件标题
+
+ /*   editQuestionnaireStatus(questionId, "3")
+    layer.msg("邮箱发送成功", {icon: 1});
+    return;*/
+
     var emailTitle = document.getElementById(
         "ctl02_ContentPlaceHolder1_txtEmailTitle").value;
     //邮件发送富文本内容
@@ -515,6 +524,11 @@ function layOutSend() {
         "【填写问卷地址】") == -1) {
       layer.msg("请不要修改'【】'里的内容，系统将会根据问卷自动进行替换！", {icon: 2});
     } else {
+
+/*      editQuestionnaireStatus(questionId, "3")
+      layer.msg("二维码分享成功", {icon: 1});
+      return;*/
+
       layer.load(2, {time: 2 * 1000});
       var url = '/addSendQuestionnaire';
       var personsData = _$('#userInfoTable').bootstrapTable('getData');
