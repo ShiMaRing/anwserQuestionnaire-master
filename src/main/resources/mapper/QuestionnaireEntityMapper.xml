@@ -424,6 +424,12 @@
 
     </select>
 
+    <select id="queryQuestionnaireAll" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT *
+        FROM questionnaire_info
+        WHERE id = #{questionId,jdbcType=VARCHAR}
+    </select>
+
     <!--添加问卷-->
     <insert id="addQuestionnaire" parameterType="map">
         insert into questionnaire_info
@@ -591,7 +597,7 @@
     </select>
 
     <!--查询问卷模板-->
-    <select id="queryQuestionnaireMould" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="queryQuestionnaireMould" parameterType="java.lang.String" resultType="map">
         SELECT id, question_name as questionName, question_content as questionContent
         FROM questionnaire_info
         WHERE data_id = #{dataId,jdbcType=VARCHAR}
