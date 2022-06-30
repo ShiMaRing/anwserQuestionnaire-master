@@ -70,7 +70,6 @@ public class ProjectService {
     QuestionnaireEntity questionnaireEntity = new QuestionnaireEntity();
     questionnaireEntity.setProjectId(projectEntity.getId());
     int status = questionnaireEntityMapper.queryReleaseQuestionnaireCount(questionnaireEntity);
-    //存在发布中问卷
     if (status > 0) {
       return 0;
     } else if (projectEntity.getProjectName() != null) {

@@ -263,10 +263,11 @@ function getProjectInfo(name) {
 // 为了创建问卷而获取项目id、项目名称
 function createGetProjectInfo(id, name) {
     //alert("创建问卷")
+    console.log(id)
     deleteCookie("projectName");
-    setCookie("projectName", name);
-    deleteCookie("dataId");
-    setCookie("dataId", id);
+    setCookie('projectName', name);
+    deleteCookie('projectId');
+    setCookie('projectId', id);
     window.location.href = "createQuestionnaire.html"
 }
 

@@ -95,7 +95,7 @@ function getQuestionnaireInfo(result) {
                     text += "<tr>";
                     text += "<td>" + (i + 1) + "</td>";
                     text += "<td>" + questionnaireData.questionName + "</td>";
-                    text += "<td>" + questionnaireData.releaseTime + "</td>";
+                    text += "<td>" + questionnaireData.creationDate + "</td>";
                     text += "<td>" + type + "</td>";
                     text += "<td>" + statusText + "</td>";
                     text += "<td><a id=\"btnEdit" + i + "\"  href=\"javascript:void(0)\" onclick=\"editQuestion(" + "'" + questionnaireData.id + "'" + "," + "'" + questionnaireData.questionName + "'" + "," + "'"

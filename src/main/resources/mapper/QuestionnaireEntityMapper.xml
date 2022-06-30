@@ -374,8 +374,6 @@
                question_content as questionContent
         FROM questionnaire_info
         WHERE project_id = #{projectId,jdbcType=VARCHAR}
-          AND question_stop != '4'
-          AND question_stop != '0'
         ORDER BY creation_date DESC
     </select>
 
@@ -544,13 +542,13 @@
         WHERE id = #{id,jdbcType=VARCHAR}
     </update>
 
-    <!--根据项目id查询发布中问卷数量-->
+    <!--根据项目id查询发布中以及進行中的问卷数量-->
     <select id="queryReleaseQuestionnaireCount" parameterType="com.aim.questionnaire.dao.entity.QuestionnaireEntity"
             resultType="java.lang.Integer">
         SELECT count(*)
         FROM questionnaire_info
         WHERE project_id = #{projectId,jdbcType=VARCHAR}
-          AND question_stop = '3'
+          AND question_stop = '3'|| question_stop = '1'
     </select>
 
     <!--添加发送问卷方式-->

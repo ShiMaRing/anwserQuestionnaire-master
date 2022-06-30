@@ -68,15 +68,23 @@ function  GetRequest() {
 
 //立即创建
 function quickCreate() {
+    var projectId=getCookie("projectId")
     var chooseTimeRange = $("#config-demo").val();
     var nowTimeInput = chooseTimeRange.split(' ~ ')[0];
     var questionendTime = chooseTimeRange.split(' ~ ')[1];
-    debugger
     var urlObj = GetRequest();
 
     deleteCookie('questionInfo');
     var questionName = $('#questionName').val();
     var questionContent = $('#questionContent').val();
+    var questionStop;
+    var radio = document.getElementsByName("isOpen");
+    for (i=0; i<radio.length; i++) {
+        if (radio[i].checked) {
+            questionStop=radio[i].value
+        }
+    }
+console.log(questionStop)
     if (questionName == '') {
         layer.msg("调查名称不能为空!", {icon: 2});
         return
@@ -90,7 +98,6 @@ function quickCreate() {
     }
     //console.log(getCookie('projectIdForCreate'));
     //console.log(getCookie('QuestionId'));
-    debugger;
     //直接创建问卷
     if (urlObj.i == "") {
         var da = {
@@ -98,8 +105,9 @@ function quickCreate() {
             'questionContent': questionContent,
             'startTime': dateChange(nowTimeInput),
             'endTime': dateChange(questionendTime),
-            'questionStop': '5',
+            'questionStop': questionStop,
             'dataId': getCookie('dataId'),
+            'projectId':projectId
             // 'projectId': getCookie('projectIdForCreate')
         };
         if (getCookie('TProjectId') != undefined) {    //创建问卷

@@ -154,6 +154,26 @@ public class QuestionnaireController {
     return httpResponseEntity;
   }
 
+
+  @RequestMapping(value = "/addQuestionnaire", method = RequestMethod.POST, headers = "Accept=application/json")
+  public HttpResponseEntity addQuestionnaire(@RequestBody Map<String, Object> map) {
+    HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+    int status = questionnaireService.addQuestionnaireInfo(map);
+    try {
+      if (status == 1) {
+        httpResponseEntity.setCode(Constans.SUCCESS_CODE);
+        httpResponseEntity.setMessage(Constans.ADD_MESSAGE);
+      } else {
+        httpResponseEntity.setCode(Constans.EXIST_CODE);
+        httpResponseEntity.setMessage(Constans.COPY_EXIT_UPDATE_MESSAGE);
+      }
+    } catch (Exception e) {
+      logger.info("addQuestionnaireInfo 添加问卷>>>>>>>>>>>" + e.getLocalizedMessage());
+      httpResponseEntity.setCode(Constans.LOGOUT_NO_CODE);
+      httpResponseEntity.setMessage(Constans.EXIST_MESSAGE);
+    }
+    return httpResponseEntity;
+  }
   /**
    * 根据问卷id删除问卷
    *
