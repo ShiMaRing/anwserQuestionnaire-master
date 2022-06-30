@@ -1,5 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:transform="http://www.w3.org/1999/xhtml"
-      class=" js no-touch csstransforms3d csstransitions">
+<html xmlns="http://www.w3.org/1999/xhtml" class=" js no-touch csstransforms3d csstransitions">
 <head id="ctl01_Head1">
     <title>创建问卷</title>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10">
@@ -20,6 +19,13 @@
             width: 100%;
             z-index: 999;
         }
+        .excel{
+            position: relative;
+            padding-left: 30px;
+            width: 800px;
+
+        }
+
     </style>
 </head>
 <body>
@@ -50,6 +56,15 @@
             <div class="create-box">
                 <div class="create__fill">
                     <div class="fill__name-box clearfix">
+                        <label class="pull-left"  style="position: relative;"><span style="color:red;left: 65px;top: 5px;position: absolute;">*</span>导入人员： </label>
+                        <form class="excel" action="@{/import}" method="post"
+                              enctype="multipart/form-data">
+                            <input style="line-height:50px; margin-bottom: 14px;" type="file" name="filename" required />
+                            <input  type="submit"	value="上传" />
+                        </form>
+                    </div>
+
+                    <div class="fill__name-box clearfix">
                         <label class="pull-left" id="spanName" style="position: relative;"><span style="color:red;left: 65px;top: 5px;position: absolute;">*</span>调查名称：</label>
                         <div class="pull-left">
                             <input type="text" id="questionName" class="pull-left"
@@ -68,17 +83,9 @@
                         <div class="pull-left">
                             <input name="ctl01$ContentPlaceHolder1$txtQName" type="text" id="config-demo" class="pull-left form-control" style="width:650px;line-height:50px; margin-bottom: 14px;">
                         </div>
+
                     </div>
 
-                    <div class="fill__name-box clearfix" style="margin-top: 20px;">
-                        <label style="position: relative;" class="pull-left" id="isOpen"><span style="color:deepskyblue;left: 65px;top: 5px;position: absolute;">是否开启</span></label>
-                        <div class="pull-left">
-                            <input name="isOpen" type="radio"     value="1" style="width:20px;line-height:50px; margin-bottom: 14px;transform: scale(2);">
-                            <div style="font-size: 15px;margin-right: 20px;display: inline-block">开启</div>
-                            <input name="isOpen" type="radio"   value="2"  style="width:20px;line-height:50px; margin-bottom: 14px; transform: scale(2); ">
-                            <div style="font-size: 15px;margin-right: 20px;display: inline-block">停止</div>
-                        </div>
-                    </div>
 
                     <div class="btn-block" style="position:relative;">
                         <table align="center">
