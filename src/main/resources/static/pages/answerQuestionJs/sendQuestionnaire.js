@@ -45,7 +45,7 @@ var columnsForCompany = [{
     title: '姓名',
     align: 'center'
   }, {
-    field: 'answerBelong',
+    field: 'school',
     title: '学校',
     align: 'center'
   }, {
@@ -58,6 +58,10 @@ var columnsForCompany = [{
     title: '邮箱',
     align: 'center'
   }, {
+    field: 'answerWx',
+    title: '微信',
+    align: 'center'
+  }, {
     field: 'operation',
     title: '操作',
     align: 'center',
@@ -67,13 +71,13 @@ var columnsForCompany = [{
 
 if (dataId == "2") {
   $("#getDownLoadBtn").prepend(
-      "<a style=\"margin-right: 20px;\" href=\"../在校生上传数 据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
+      "<a style=\"margin-right: 20px;\" href=\"../在校生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
 } else if (dataId == "3") {
   $("#getDownLoadBtn").prepend(
-      "<a style=\"margin-right: 20px;\" href=\"../毕业生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
+      "<a style=\"margin-right: 20px;\" href=\"../在校生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
 } else if (dataId == "4") {
   $("#getDownLoadBtn").prepend(
-      "<a style=\"margin-right: 20px;\" href=\"../教师上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
+      "<a style=\"margin-right: 20px;\" href=\"../在校生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
 } else if (dataId == "5") {
   $("#getDownLoadBtn").prepend(
       "<a style=\"margin-right: 20px;\" href=\"../用人单位上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
@@ -92,11 +96,11 @@ if (dataId == "2") {
   },
     {
       field: 'answerName',
-      title: '用人单位',
+      title: '姓名',
       align: 'center'
     }, {
       field: 'answerBelong',
-      title: '学校',
+      title: '用人单位',
       align: 'center'
     }, {
       field: 'answerPhone',
@@ -107,7 +111,8 @@ if (dataId == "2") {
       field: 'answerEmail',
       title: '邮箱',
       align: 'center'
-    }, {
+    },
+   {
       field: 'operation',
       title: '操作',
       align: 'center',
@@ -392,8 +397,8 @@ $('#image').change(function (e) {
     }
     if (persons.length != 0) {
       if (!persons[0].no || !persons[0].answerNum || !persons[0].answerName
-          || !persons[0].answerBelong || !persons[0].answerPhone
-          || !persons[0].answerEmail) {
+          || !persons[0].school || !persons[0].answerPhone
+          || !persons[0].answerEmail||!persons[0].answerWx) {
         layer.msg('数据模板不正确');
 
         return

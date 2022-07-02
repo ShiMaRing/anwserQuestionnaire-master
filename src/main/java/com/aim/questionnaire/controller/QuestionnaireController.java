@@ -40,13 +40,14 @@ public class QuestionnaireController {
         responseEntity.setCode(Constans.SUCCESS_CODE);
         responseEntity.setData(questionnaireEntityList);
         responseEntity.setMessage(Constans.STATUS_MESSAGE);
-      } else {
-        responseEntity.setCode(Constans.EXIST_CODE);
-        responseEntity.setData(null);
-        responseEntity.setMessage(Constans.QUERYFAIL_MESSAGE);
       }
+//      else {
+//        responseEntity.setCode(Constans.EXIST_CODE);
+//        responseEntity.setData(null);
+//        responseEntity.setMessage(Constans.QUERYFAIL_MESSAGE);
+//      }
     } catch (Exception e) {
-      logger.error("查询所有问卷异常>>>>>>>>>>>", e);
+      logger.error("查询所有问卷异常:", e);
       responseEntity.setCode(Constans.EXIST_CODE);
       responseEntity.setMessage(Constans.EXIST_MESSAGE);
     }
@@ -62,19 +63,20 @@ public class QuestionnaireController {
   @RequestMapping(value = "/queryQuestionnaireListByProjectId", method = RequestMethod.POST, headers = "Accept=application/json")
   public HttpResponseEntity queryProjectList(@RequestBody ProjectEntity projectEntity) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
-    List<Map<String, Object>> list = questionnaireService.queryQuestionnaireListById(projectEntity);
+    List<Map<String, Object>> alist = questionnaireService.queryQuestionnaireListById(projectEntity);
     try {
-      if (list.size() != 0) {
+      if (alist.size() != 0) {
         httpResponseEntity.setCode(Constans.SUCCESS_CODE);
-        httpResponseEntity.setData(list);
+        httpResponseEntity.setData(alist);
         httpResponseEntity.setMessage(Constans.STATUS_MESSAGE);
-      } else {
-        httpResponseEntity.setCode(Constans.EXIST_CODE);
-        httpResponseEntity.setData(null);
-        httpResponseEntity.setMessage(Constans.QUERYFAIL_MESSAGE);
       }
+//      else {
+//        httpResponseEntity.setCode(Constans.EXIST_CODE);
+//        httpResponseEntity.setData(null);
+//        httpResponseEntity.setMessage(Constans.QUERYFAIL_MESSAGE);
+//      }
     } catch (Exception e) {
-      logger.info("addUserInfo 根据项目id查询问卷的基本信息>>>>>>>>>>>" + e.getLocalizedMessage());
+      logger.info("addUserInfo 根据项目id查询问卷的基本信息:" + e.getLocalizedMessage());
       httpResponseEntity.setCode(Constans.EXIST_CODE);
       httpResponseEntity.setMessage(Constans.EXIST_MESSAGE);
     }
@@ -90,7 +92,8 @@ public class QuestionnaireController {
         httpResponseEntity.setCode(Constans.SUCCESS_CODE);
         httpResponseEntity.setData(list);
         httpResponseEntity.setMessage(Constans.STATUS_MESSAGE);
-      } else {
+      }
+      else {
         httpResponseEntity.setCode(Constans.EXIST_CODE);
         httpResponseEntity.setData(null);
         httpResponseEntity.setMessage(Constans.QUERYFAIL_MESSAGE);
@@ -113,7 +116,8 @@ public class QuestionnaireController {
         httpResponseEntity.setCode(Constans.SUCCESS_CODE);
         httpResponseEntity.setData(questionnaireEntity);
         httpResponseEntity.setMessage(Constans.STATUS_MESSAGE);
-      } else {
+      }
+      else {
         httpResponseEntity.setCode(Constans.EXIST_CODE);
         httpResponseEntity.setData(questionnaireEntity);
         httpResponseEntity.setMessage(Constans.QUERYFAIL_MESSAGE);
