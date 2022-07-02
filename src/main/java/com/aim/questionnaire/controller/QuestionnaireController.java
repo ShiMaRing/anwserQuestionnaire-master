@@ -519,4 +519,24 @@ questionId: "f1a52b2369c9425987a1133d471dd187"*/
     return httpResponseEntity;
   }
 
+
+  @RequestMapping(value = "/queryAllQuestionnaireByCreated", method = RequestMethod.POST, headers = "Accept=application/json")
+  public HttpResponseEntity queryAllQuestionnaireByCreated() {
+    HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+    Map<String, Object> map = new HashMap<>();
+    List<Map<String, Object>> status = questionnaireService.queryAllQuestionnaireByCreated(map);
+    try {
+      if (status!=null&&status.size()>0) {
+        httpResponseEntity.setData(status);
+        httpResponseEntity.setCode(Constans.SUCCESS_CODE);
+        httpResponseEntity.setMessage("查询成功");
+      }
+    } catch (Exception e) {
+      httpResponseEntity.setCode(Constans.LOGOUT_NO_CODE);
+      httpResponseEntity.setMessage(Constans.EXIST_MESSAGE);
+    }
+    return httpResponseEntity;
+  }
+
+
 }

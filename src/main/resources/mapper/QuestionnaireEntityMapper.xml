@@ -823,7 +823,7 @@
   <select id="queryAllQuestionnaireByCreated" resultType="java.util.Map">
     SELECT id, question_name as questionName
     FROM questionnaire_info que
-    WHERE created_by = #{user,jdbcType=VARCHAR}
+
   </select>
 
 

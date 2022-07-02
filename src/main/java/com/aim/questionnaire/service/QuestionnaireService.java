@@ -258,4 +258,8 @@ public class QuestionnaireService {
   public void modifyAnswerCount(QuestionnaireEntity questionnaireEntity) {
      questionnaireEntityMapper.modifyAnswerCount(questionnaireEntity);
   }
+
+  public List<Map<String, Object>> queryAllQuestionnaireByCreated(Map<String, Object> map) {
+    return  questionnaireEntityMapper.queryAllQuestionnaireByCreated(map);
+  }
 }
