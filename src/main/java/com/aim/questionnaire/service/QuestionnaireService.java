@@ -94,8 +94,12 @@ public class QuestionnaireService {
     }
 
     //建立问卷和项目的关联
-    public int addQuestionnaireInfo(Map<String, Object> map) {
+    public Map<String,Object> addQuestionnaireInfo(Map<String, Object> map) {
+
+        Map<String,Object> result=new HashMap<>();
         String id = UUIDUtil.getOneUUID();
+
+        result.put("id",id);
         map.put("id", id);
         //创建时间
         Date date = DateUtil.getCreateTime();
@@ -112,8 +116,9 @@ public class QuestionnaireService {
         Date endTime = DateUtil.getMyTime(endTimeStr);
         map.put("startTime",startTime);
         map.put("endTime",endTime);
-        int result = questionnaireEntityMapper.addQuestionnaire((HashMap<String, Object>) map);
-        return 1;
+        int update = questionnaireEntityMapper.addQuestionnaire((HashMap<String, Object>) map);
+        result.put("status",update);
+        return result;
     }
 
     /**
@@ -178,5 +183,15 @@ public class QuestionnaireService {
         System.out.println("endtime:  "+endTime);
         map.put("questionList",map.get("questionList").toString());
         return questionnaireEntityMapper.modifyQuestionnaire(map);
+    }
+
+
+    public int modifyQuestionnaireInfo(QuestionnaireEntity questionnaireEntity) {
+        return questionnaireEntityMapper.modifyQuestionnaireInfo(questionnaireEntity);
+    }
+
+    public Map<String, String> queryQuestionnaireById(Map<String, Object> map) {
+        return  questionnaireEntityMapper.queryQuestionnaireById(
+            (HashMap<String, Object>) map);
     }
 }

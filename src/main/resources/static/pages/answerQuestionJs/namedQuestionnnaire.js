@@ -145,8 +145,9 @@ function addQuestionnaireSuccess(res) {
   if (res.code == '666') {
     layer.msg(res.message, {icon: 1});
     deleteCookie('dataId');
-
-    window.location.href = 'myQuestionnaires.html'
+    deleteCookie('QuestionId');
+    setCookie('QuestionId',res.data.id)
+    window.location.href = 'designQuestionnaire.html'
   } else if (res.code == "333") {
     layer.msg(res.message, {icon: 2});
     setTimeout(function () {

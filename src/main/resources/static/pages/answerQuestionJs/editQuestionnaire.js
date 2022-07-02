@@ -87,9 +87,39 @@ function modifyQuest() {
             "startTime": questionStarTimeIntTemp,
             "endTime": questionEnTimeIntTemp
         };
+        commonAjaxPost(true, url, data, modifyQuestSuccess2);
+    }
+}
+
+//点击先保存，然后去编辑问题
+function modifyQuest2() {
+    var questionNameInt = $("#questionName").val();
+    var questionContentInt = $("#questionContent").val();
+    var belongType = $("#belongType").val();
+    var questionStarTimeInt = $("#questionStartEndTime").val().split(" ~ ")[0];
+    var questionEnTimeInt = $("#questionStartEndTime").val().split(" ~ ")[1];
+
+    var questionStarTimeIntTemp = dateChange(questionStarTimeInt);
+    var questionEnTimeIntTemp = dateChange(questionEnTimeInt);
+
+    if (questionNameInt.trim() == '') {
+        layer.msg('请完整填写项目名称')
+    } else if (questionContentInt.trim() == '') {
+        layer.msg('请完整填写项目描述')
+    } else {
+        var url = '/modifyQuestionnaireInfo';
+        var data = {
+            "id": questionId,
+            "questionName": questionNameInt,
+            "questionContent": questionContentInt,
+            "dataId": belongType,
+            "startTime": questionStarTimeIntTemp,
+            "endTime": questionEnTimeIntTemp
+        };
         commonAjaxPost(true, url, data, modifyQuestSuccess);
     }
 }
+
 
 //修改问卷信息成功
 function modifyQuestSuccess(result) {
@@ -107,6 +137,23 @@ function modifyQuestSuccess(result) {
         layer.msg(result.message, {icon: 2});
     }
 }
+//修改问卷信息成功
+function modifyQuestSuccess2(result) {
+    if (result.code == '666') {
+        layer.msg('修改成功', {icon: 1});
+        deleteCookie('QuestionId')
+        setCookie('QuestionId',questionId)
+        window.location.href='designQuestionnaire.html'
+    } else if (result.code == "333") {
+        layer.msg(result.message, {icon: 2});
+        setTimeout(function () {
+            window.location.href = 'login.html';
+        }, 1000)
+    } else {
+        layer.msg(result.message, {icon: 2});
+    }
+}
+
 
 // 创建时间区域选择
 function createTimePicker() {

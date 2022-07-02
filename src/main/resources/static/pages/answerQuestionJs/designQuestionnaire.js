@@ -22,8 +22,8 @@ $(function () {
     if (Object.keys(urlObj).length == 0) {
         setCookie('QuestionId', getCookie("QuestionId"));
         var da = {'questionId': getCookie("QuestionId")};
-        questionId=getCookie("QuestionId")
-        console.log(getCookie("QuestionId"));
+        questionId=getCookie('QuestionId')
+        deleteCookie('QuestionId')
     } else {
         deleteCookie('QuestionId');
         deleteCookie('isEdit');
@@ -1161,23 +1161,26 @@ function sureChange() {
     layer.closeAll();
 }
 
-//完成问卷设计的总按钮 的回掉
+//完成问卷设计的总按钮
 function addQuestionnaireSuccess(res) {
     // console.log(res);
     if (res.code == '666') {
         deleteCookie('QuestionId');
         deleteCookie('previewId');
         layer.msg(res.message, {icon: 1});
+
         if (res.message == '添加成功') {
             setCookie('QuestionId', res.data);
             setCookie('previewId', res.data);
             judgeQuestionId();
             // console.log(getCookie('QuestionId'));
             questionList = [];
+            window.location.href = 'myQuestionnaire.html';
         } else if (res.message == '修改成功') {
             setCookie('QuestionId', res.data);
             setCookie('previewId', res.data);
             judgeQuestionId();
+            window.location.href = 'myQuestionnaire.html';
             // console.log(getCookie('QuestionId'));
         }
     } else if (res.code == "333") {
@@ -1202,7 +1205,7 @@ function queryQuestionnaireAllSuccess(res) {
         console.log(res.data.questionName);
         $('.questionTitle').text(res.data.questionName); //问卷名称
         $('#pater_desc').html(res.data.questionContent);//问卷说明
-        if (res.data.questionStop == '4' || res.data.questionStop == '1') {
+        if (res.data.questionStop == '4' || res.data.questionStop == '1'||res.data.questionStop=='2') {
             endTime = dateChange(res.data.endTime);
             if (getCookie('isEdit') != '1') {
                 deleteCookie('QuestionId');
@@ -1210,7 +1213,7 @@ function queryQuestionnaireAllSuccess(res) {
                 $('.questionTitle').text(questionInfo.questionName); //问卷名称
                 $('#pater_desc').html(questionInfo.questionContent);//问卷说明
             }
-        } else if (res.data.questionStop == '4') {
+        } else{
             endTime = dateChange(res.data.endTime);
             startTime = res.data.startTime;
             questionStop = res.data.questionStop;
