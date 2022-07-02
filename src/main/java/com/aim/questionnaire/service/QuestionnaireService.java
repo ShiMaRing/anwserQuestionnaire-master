@@ -186,9 +186,12 @@ public class QuestionnaireService {
     return questionnaireEntityMapper.modifyQuestionnaireStatus(map);
   }
 
+
   public int addQuestionnaireProject(Map<String, Object> map) {
-    return 0;
+    return questionnaireEntityMapper.modifyQuestionnaire((HashMap<String, Object>) map);
   }
+
+
 
   public List<Map<String, Object>> queryHistoryQuestionnaire(Map<String, Object> map) {
     return questionnaireEntityMapper.queryHistoryQuestionnaire((HashMap<String, Object>) map);
