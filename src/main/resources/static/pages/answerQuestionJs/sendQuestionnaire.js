@@ -71,16 +71,173 @@ var columnsForCompany = [{
 
 if (dataId == "2") {
   $("#getDownLoadBtn").prepend(
-      "<a style=\"margin-right: 20px;\" href=\"../../在校生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
+      "<a style=\"margin-right: 20px;\" href=\"../在校生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
+  columnsForCompany = [{
+    checkbox: true,
+    visible: false
+  }, {
+    field: 'no',
+    title: '序号',
+    align: 'center',
+  }, {
+    field: 'answerNum',
+    title: '答题人编号',
+    align: 'center',
+    width: '200px'
+  },
+    {
+      field: 'answerName',
+      title: '姓名',
+      align: 'center'
+    }, {
+      field: 'school',
+      title: '学校',
+      align: 'center'
+    },
+    {
+      field: 'major',
+      title: '专业',
+      align: 'center'
+    }, {
+      field: 'class',
+      title: '班级',
+      align: 'center'
+    }, {
+      field: 'answerPhone',
+      title: '手机号码',
+      align: 'center'
+    },
+    {
+      field: 'answerEmail',
+      title: '邮箱',
+      align: 'center'
+    }, {
+      field: 'answerWx',
+      title: '微信',
+      align: 'center'
+    },
+    {
+      field: 'answerQq',
+      title: 'QQ',
+      align: 'center'
+    },{
+      field: 'operation',
+      title: '操作',
+      align: 'center',
+      events: operateEvents,//给按钮注册事件
+      formatter: addFunctionAlty//表格中增加按钮
+    }]
 } else if (dataId == "3") {
   $("#getDownLoadBtn").prepend(
-      "<a style=\"margin-right: 20px;\" href=\"../../在校生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
+      "<a style=\"margin-right: 20px;\" href=\"../毕业生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
+  columnsForCompany = [{
+    checkbox: true,
+    visible: false
+  }, {
+    field: 'no',
+    title: '序号',
+    align: 'center',
+  }, {
+    field: 'answerNum',
+    title: '答题人编号',
+    align: 'center',
+    width: '200px'
+  },
+    {
+      field: 'answerName',
+      title: '姓名',
+      align: 'center'
+    }, {
+      field: 'school',
+      title: '毕业学校',
+      align: 'center'
+    },
+    {
+      field: 'major',
+      title: '专业',
+      align: 'center'
+    }, {
+      field: 'class',
+      title: '班级',
+      align: 'center'
+    }, {
+      field: 'answerPhone',
+      title: '手机号码',
+      align: 'center'
+    },
+    {
+      field: 'answerEmail',
+      title: '邮箱',
+      align: 'center'
+    }, {
+      field: 'answerWx',
+      title: '微信',
+      align: 'center'
+    },
+    {
+      field: 'answerQq',
+      title: 'QQ',
+      align: 'center'
+    },{
+      field: 'operation',
+      title: '操作',
+      align: 'center',
+      events: operateEvents,//给按钮注册事件
+      formatter: addFunctionAlty//表格中增加按钮
+    }]
 } else if (dataId == "4") {
   $("#getDownLoadBtn").prepend(
-      "<a style=\"margin-right: 20px;\" href=\"../../在校生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
+      "<a style=\"margin-right: 20px;\" href=\"../教师生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
+  columnsForCompany = [{
+    checkbox: true,
+    visible: false
+  }, {
+    field: 'no',
+    title: '序号',
+    align: 'center',
+  }, {
+    field: 'answerNum',
+    title: '答题人编号',
+    align: 'center',
+    width: '200px'
+  },
+    {
+      field: 'answerName',
+      title: '姓名',
+      align: 'center'
+    }, {
+      field: 'school',
+      title: '所属院校',
+      align: 'center'
+    },
+    {
+      field: 'answerPhone',
+      title: '手机号码',
+      align: 'center'
+    },
+    {
+      field: 'answerEmail',
+      title: '邮箱',
+      align: 'center'
+    }, {
+      field: 'answerWx',
+      title: '微信',
+      align: 'center'
+    },
+    {
+      field: 'answerQq',
+      title: 'QQ',
+      align: 'center'
+    },{
+      field: 'operation',
+      title: '操作',
+      align: 'center',
+      events: operateEvents,//给按钮注册事件
+      formatter: addFunctionAlty//表格中增加按钮
+    }]
 } else if (dataId == "5") {
   $("#getDownLoadBtn").prepend(
-      "<a style=\"margin-right: 20px;\" href=\"../../用人单位上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
+      "<a style=\"margin-right: 20px;\" href=\"../用人单位上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
   columnsForCompany = [{
     checkbox: true,
     visible: false
@@ -676,7 +833,7 @@ function getQrcode() {
     dataType: "json",
     contentType: "application/json",
     success: function (res) {
-   console.log(res);
+      // //console.log(res);
       var resData = JSON.parse(res.data);
       shortUrl = resData.tinyurl;
       document.getElementById(
@@ -687,6 +844,7 @@ function getQrcode() {
         height: 100, //高度
         text: shortUrl    //任意内容
       })
+      editQuestionnaireStatus(questionId, "3")
     },
     error: function (jqXHR, textStatus, errorThrown) {
       // alert(jqXHR);
