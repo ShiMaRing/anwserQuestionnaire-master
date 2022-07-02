@@ -63,7 +63,8 @@ public class QuestionnaireController {
   @RequestMapping(value = "/queryQuestionnaireListByProjectId", method = RequestMethod.POST, headers = "Accept=application/json")
   public HttpResponseEntity queryProjectList(@RequestBody ProjectEntity projectEntity) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
-    List<Map<String, Object>> alist = questionnaireService.queryQuestionnaireListById(projectEntity);
+    List<Map<String, Object>> alist = questionnaireService.queryQuestionnaireListById(
+        projectEntity);
     try {
       if (alist.size() != 0) {
         httpResponseEntity.setCode(Constans.SUCCESS_CODE);
@@ -92,8 +93,7 @@ public class QuestionnaireController {
         httpResponseEntity.setCode(Constans.SUCCESS_CODE);
         httpResponseEntity.setData(list);
         httpResponseEntity.setMessage(Constans.STATUS_MESSAGE);
-      }
-      else {
+      } else {
         httpResponseEntity.setCode(Constans.EXIST_CODE);
         httpResponseEntity.setData(null);
         httpResponseEntity.setMessage(Constans.QUERYFAIL_MESSAGE);
@@ -109,15 +109,15 @@ public class QuestionnaireController {
   public HttpResponseEntity queryQuestionnaireAll(@RequestBody Map<String, Object> map) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
     Object questionId = map.get("questionId");
-    QuestionnaireEntity questionnaireEntity = questionnaireService.queryQuestionnaireAll((String) questionId);
+    QuestionnaireEntity questionnaireEntity = questionnaireService.queryQuestionnaireAll(
+        (String) questionId);
 
     try {
-      if (questionnaireEntity!=null) {
+      if (questionnaireEntity != null) {
         httpResponseEntity.setCode(Constans.SUCCESS_CODE);
         httpResponseEntity.setData(questionnaireEntity);
         httpResponseEntity.setMessage(Constans.STATUS_MESSAGE);
-      }
-      else {
+      } else {
         httpResponseEntity.setCode(Constans.EXIST_CODE);
         httpResponseEntity.setData(questionnaireEntity);
         httpResponseEntity.setMessage(Constans.QUERYFAIL_MESSAGE);
@@ -252,6 +252,44 @@ public class QuestionnaireController {
   }
 
 
+  @RequestMapping(value = "/getShortUrlForLink", method = RequestMethod.POST, headers = "Accept=application/json")
+  public HttpResponseEntity getShortUrlForLink(@RequestBody Map<String, String> map) {
+    HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+    Map<String, String> res = new HashMap<>();
+    String id = map.get("id");
+    String link = map.get("link");
+    String baseUrl = "http://localhost:8085/pages/previewQuestionnaire.html?";
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append("id=").append(id);
+    if (link != null && !link.equals("")) {
+      stringBuilder.append("&type=l");
+    } else {
+      stringBuilder.append("&type=zzz");
+    }
+    baseUrl += stringBuilder.toString();
+    res.put("tinyurl", baseUrl);
+    httpResponseEntity.setData(JSON.toJSONString(res));
+    httpResponseEntity.setCode(Constans.SUCCESS_CODE);
+    return httpResponseEntity;
+  }
+
+
+
+  //找到所有过期模板
+  @RequestMapping(value = "/queryQuestContextEnd", method = RequestMethod.POST, headers = "Accept=application/json")
+  public HttpResponseEntity queryQuestContextEnd(@RequestBody Map<String, Object> map) {
+    HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+    //找到所有过期模板
+    httpResponseEntity.setData(questionnaireService.queryHistoryQuestionnaire(map));
+    httpResponseEntity.setCode(Constans.SUCCESS_CODE);
+    return httpResponseEntity;
+  }
+
+
+
+
+
+
   @RequestMapping(value = "/addQuestionnaire", method = RequestMethod.POST, headers = "Accept=application/json")
   public HttpResponseEntity addQuestionnaire(@RequestBody Map<String, Object> map) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
@@ -353,19 +391,14 @@ public class QuestionnaireController {
   }
 
 
-
   //用邮件发布信息
   @RequestMapping(value = "/addSendQuestionnaire", method = RequestMethod.POST, headers = "Accept=application/json")
   public HttpResponseEntity addSendQuestionnaire(@RequestBody HashMap<String, Object> map) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
-      questionnaireService.sendByEmail(map);
+    questionnaireService.sendByEmail(map);
 //    int status = questionnaireService.modifyQuestionnaire(map);
-
     return httpResponseEntity;
   }
-
-
-
 
 
 }

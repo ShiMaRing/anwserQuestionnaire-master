@@ -71,16 +71,16 @@ var columnsForCompany = [{
 
 if (dataId == "2") {
   $("#getDownLoadBtn").prepend(
-      "<a style=\"margin-right: 20px;\" href=\"../在校生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
+      "<a style=\"margin-right: 20px;\" href=\"../../在校生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
 } else if (dataId == "3") {
   $("#getDownLoadBtn").prepend(
-      "<a style=\"margin-right: 20px;\" href=\"../在校生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
+      "<a style=\"margin-right: 20px;\" href=\"../../在校生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
 } else if (dataId == "4") {
   $("#getDownLoadBtn").prepend(
-      "<a style=\"margin-right: 20px;\" href=\"../在校生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
+      "<a style=\"margin-right: 20px;\" href=\"../../在校生上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
 } else if (dataId == "5") {
   $("#getDownLoadBtn").prepend(
-      "<a style=\"margin-right: 20px;\" href=\"../用人单位上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
+      "<a style=\"margin-right: 20px;\" href=\"../../用人单位上传数据模板.xlsx\" class=\"add__batches pull-left\">下载模板</a>");
   columnsForCompany = [{
     checkbox: true,
     visible: false
@@ -676,7 +676,7 @@ function getQrcode() {
     dataType: "json",
     contentType: "application/json",
     success: function (res) {
-      // //console.log(res);
+   console.log(res);
       var resData = JSON.parse(res.data);
       shortUrl = resData.tinyurl;
       document.getElementById(
@@ -687,7 +687,6 @@ function getQrcode() {
         height: 100, //高度
         text: shortUrl    //任意内容
       })
-      editQuestionnaireStatus(questionId, "3")
     },
     error: function (jqXHR, textStatus, errorThrown) {
       // alert(jqXHR);
