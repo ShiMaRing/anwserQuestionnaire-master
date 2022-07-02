@@ -25,7 +25,7 @@ public class CommonUtils {
 
     public static void sendEmail(String myqq, String userqq , String title, String textContext) throws Exception{
             //授权码
-        String password = "xgs1150840779";
+        String password = "eybmpvedzwkjdaff";
 
 
         Properties properties = new Properties();

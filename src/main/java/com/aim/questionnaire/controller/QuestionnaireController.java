@@ -264,9 +264,9 @@ public class QuestionnaireController {
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append("id=").append(id);
     if (link != null && !link.equals("")) {
-      stringBuilder.append("&type=l");
+      stringBuilder.append("&l");
     } else {
-      stringBuilder.append("&type=zzz");
+      stringBuilder.append("&zzz");
     }
     baseUrl += stringBuilder.toString();
     res.put("tinyurl", baseUrl);
@@ -412,34 +412,33 @@ public class QuestionnaireController {
     switch (sendType) {
       case "0":
         Object releaseTime = map.get("releaseTime");
-        if(releaseTime.toString().equals("")){
+        if (releaseTime.toString().equals("")) {
           Date currentDate = DateUtil.getCurrentDate();
-          map.put("releaseTime",currentDate);
-        }else
-        {
-          map.put("releaseTime",new Date((long)releaseTime));
+          map.put("releaseTime", currentDate);
+        } else {
+          map.put("releaseTime", new Date((long) releaseTime));
         }
-        status=questionnaireService.addSendQuestionnaire(map);
+        status = questionnaireService.addSendQuestionnaire(map);
         break;
       case "1":
         //邮箱发送方式
         map.put("releaseTime", DateUtil.getCurrentDate());
-        status=questionnaireService.addSendQuestionnaire(map);
+        status = questionnaireService.addSendQuestionnaire(map);
         questionnaireService.sendByEmail(map);
         break;
       case "2":
         //链接发送方式
         Date currentDate = DateUtil.getCurrentDate();
-        map.put("releaseTime",currentDate);
-        status=questionnaireService.addSendQuestionnaire(map);
+        map.put("releaseTime", currentDate);
+        status = questionnaireService.addSendQuestionnaire(map);
         break;
       default:
         break;
     }
     //不管如何发送，最后问卷状态都调整为已发送
-    if (status==1){
-      map.put("id",map.get("questionId"));
-      map.put("questionStop","3");
+    if (status == 1) {
+      map.put("id", map.get("questionId"));
+      map.put("questionStop", "3");
       questionnaireService.modifyQuestionnaireStatus(map);
       httpResponseEntity.setCode(Constans.SUCCESS_CODE);
       httpResponseEntity.setMessage("发送成功");
@@ -451,7 +450,73 @@ public class QuestionnaireController {
   public int addSendQuestionnaire() {
     return 100;
   }
+/*
+* answerEmail: "150840779@qq.com"
+answerList: ["0"]
+answerSource: "email"
+answerTime: 1656767600000
+endTime: 1656767756000
+ipAddress: "39.184.4.17"
+questionId: "f1a52b2369c9425987a1133d471dd187"*/
+
+  //将用户的回答进行存储
+  @RequestMapping(value = "/addAnswerQuestionnaire", method = RequestMethod.POST, headers = "Accept=application/json")
+  public HttpResponseEntity addAnswerQuestionnaire(
+      @RequestBody Map<String, Object> map) {
+    //逻辑，先查一下数据库里面有没有已经回答过这个项目的ip地址，如果有的话就返回错误，如果没有的话就添加到数据表，还有给问卷回答人数+1，还要检查一下是不是在规定时间里
+    HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+    String questionId = map.get("questionId").toString();
+    QuestionnaireEntity questionnaireEntity = questionnaireService.queryQuestionnaireAll(
+        questionId);
+    long answerTime = (long) map.get("answerTime");
+    long endTime = (long) map.get("endTime");
+    if (answerTime > endTime) {
+      httpResponseEntity.setCode(Constans.EXIST_CODE);
+      httpResponseEntity.setMessage("问卷已经截止提交");
+      return httpResponseEntity;
+    }
+    Date startTime = questionnaireEntity.getStartTime();
+    long time = startTime.getTime();
+    if (time > answerTime) {
+      httpResponseEntity.setCode(Constans.EXIST_CODE);
+      httpResponseEntity.setMessage("问卷暂未开放");
+      return httpResponseEntity;
+    }
+
+    if (!questionnaireEntity.getQuestionStop().equals("3")){
+      httpResponseEntity.setCode(Constans.EXIST_CODE);
+      httpResponseEntity.setMessage("问卷未发送，请勿作答");
+      return httpResponseEntity;
+    }
+    //接下来判断是不是已经回答过了，
+    int count = questionnaireService.isAnswerd(map);
+
+    if (count == 1) {
+      httpResponseEntity.setCode(Constans.EXIST_CODE);
+      httpResponseEntity.setMessage("请不要重复提交问卷");
+      return httpResponseEntity;
+    }
+    //给数量+1
+    String answerTotal = questionnaireEntity.getAnswerTotal();
+    int i = Integer.parseInt(answerTotal)+1;
+    questionnaireEntity.setAnswerTotal("" + i);
+
+    questionnaireService.modifyAnswerCount(questionnaireEntity);
+
+    map.put("answerList", map.get("answerList").toString());
+    map.put("answerTime",new Date(answerTime));
+    map.put("endTime",new Date(endTime));
+
+    int status = questionnaireService.addAnswerQuestionnaire(map);
+
+    if (status == 1) {
+      httpResponseEntity.setCode(Constans.SUCCESS_CODE);
+      httpResponseEntity.setMessage(questionnaireEntity.getQuestionEndContent());
+    } else if (status == 0) {
+      httpResponseEntity.setCode(Constans.EXIST_CODE);
+      httpResponseEntity.setMessage("提交失败");
+    }
+    return httpResponseEntity;
+  }
 
 }
-
-

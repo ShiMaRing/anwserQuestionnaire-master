@@ -202,10 +202,10 @@ function addSuccess(res) {
     // location.reload();
     console.log(res)
     if (res.code == '666') {
-        alert(res.data);
-        $('.questionnaire').html('<p style="width: 60%; margin: 200px auto;text-align: center;font-size: 16px;">' + res.data + '</p>')
+        alert(res.message);//是数据库中保存的endContent
+        $('.questionnaire').html('<p style="width: 60%; margin: 200px auto;text-align: center;font-size: 16px;">' + res.message + '</p>')
     } else {
-        alert(res.message);
+       layer.msg(res.message,{icon: 2})
     }
 }
 
@@ -379,6 +379,9 @@ function getUrlInfo() {
         var contactBefore = info.split('&')[1];
         // eORp = contactBefore.split('=')[0];
         eORp = contactBefore.substr(0, 1);
+
+        console.log("e0Rp is"+eORp)
+
         if (eORp != 'e' && eORp != 'p' && eORp != 'zzz' && eORp != 'l') {
             eORp = 'zzz'
         }

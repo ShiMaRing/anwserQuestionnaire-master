@@ -79,8 +79,9 @@ function getProjectQuestSuccess(result) {
                 text += "   <tr align=\"center\" valign=\"middle\"style=\"color:Gray;background-color:#F7F8F9;border-color:#D7D8D9;font-size:14px;height:36px;\">"
                 text += "    <th style=\"text-align:center;width:10%\" scope=\"col\">序号</th>"
                 text += "   <th style=\"text-align:center; width: 10%\" scope=\"col\">问卷名称</th>"
-                text += "   <th style=\"text-align:center; width: 20%\" scope=\"col\">开始时间</th>"
-                text += "   <th style=\"text-align:center; width: 20%\" scope=\"col\">结束时间</th>"
+                text += "   <th style=\"text-align:center; width: 15%\" scope=\"col\">开始时间</th>"
+                text += "   <th style=\"text-align:center; width: 15%\" scope=\"col\">结束时间</th>"
+                text += "   <th style=\"text-align:center; width: 5%\" scope=\"col\">回答数量</th>"
                 text += "    <th style=\"text-align:center;width:10%\" scope=\"col\">状态</th>"
                 text += "   <th style=\"text-align:center;width: 40%\" scope=\"col\">操作</th>"
                 text += " </tr>"
@@ -153,6 +154,9 @@ function getQuestionnaireInfoByProjectId(name, result) {
                     text += "    </td>";
                     text += "    <td align=\"center\" >";
                     text += "      <span>" + questionnaireData.endTime + "</span>";
+                    text += "    </td>";
+                    text += "    <td align=\"center\" >";
+                    text += "      <span>" + questionnaireData.answerTotal + "</span>";
                     text += "    </td>";
                     text += "    <td align=\"center\">";
                     text += "        <span>" + status + "</span>";

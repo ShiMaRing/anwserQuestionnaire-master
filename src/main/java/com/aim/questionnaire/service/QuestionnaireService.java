@@ -41,9 +41,9 @@ public class QuestionnaireService {
     for (Map<String, Object> map : maps) {
       String emailTitle = (String) para.get("emailTitle");
       String textContext = (String) para.get("context");
-      textContext.replaceAll("【联系人姓名】", (String) map.get("answerName"));
+      textContext.replace("【联系人姓名】", (String) map.get("answerName"));
       String url = urlCreate((String) para.get("questionId"));
-      textContext.replaceAll("【问卷地址】", url);
+      textContext.replace("【问卷地址】", url+map.get("answerEmail"));
       try {
         CommonUtils.sendEmail("3578379415", (String) map.get("answerEmail"), emailTitle,
             textContext);
@@ -57,7 +57,7 @@ public class QuestionnaireService {
     String baseUrl = "http://localhost:8085/pages/previewQuestionnaire.html?";
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder.append("id=").append(id);
-    stringBuilder.append("&type=e");
+    stringBuilder.append("&e");
     baseUrl += stringBuilder.toString();
     return baseUrl;
   }
@@ -245,5 +245,17 @@ public class QuestionnaireService {
 
   public int addSendQuestionnaire(HashMap<String, Object> map) {
     return questionnaireEntityMapper.addSendQuestionnaire(map);
+  }
+
+  public int addAnswerQuestionnaire(Map<String, Object> map) {
+    return questionnaireEntityMapper.addAnswerQuestionnaire(map);
+  }
+
+  public int isAnswerd(Map<String, Object> map) {
+    return questionnaireEntityMapper.isAnswerd(map);
+  }
+
+  public void modifyAnswerCount(QuestionnaireEntity questionnaireEntity) {
+     questionnaireEntityMapper.modifyAnswerCount(questionnaireEntity);
   }
 }

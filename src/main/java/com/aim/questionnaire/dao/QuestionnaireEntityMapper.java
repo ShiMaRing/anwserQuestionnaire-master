@@ -456,4 +456,10 @@ public interface QuestionnaireEntityMapper {
   int selectByNameId(@Param("questionName") String questionName, @Param("id") String id);
 
   QuestionnaireEntity queryQuestionnaireAll(String questionId);
+
+  int addAnswerQuestionnaire(Map<String, Object> map);
+
+  int isAnswerd(Map<String, Object> map);
+
+  void modifyAnswerCount(QuestionnaireEntity questionnaireEntity);
 }
