@@ -123,7 +123,9 @@ function editQuestion(id, name, content, endTime, creationDate, dataId) {
                 layer.msg('问卷已发布，不可修改', {icon: 2});
             } else if (result.data== "1"){
                 layer.msg('请停止问卷后修改', {icon: 2});
-            }else{
+            }else if (result.data== "0"){
+                layer.msg('问卷已过期，不可修改', {icon: 2});
+            } else {
                 deleteCookie("questionId");
                 deleteCookie("questionName");
                 deleteCookie("questionContent");

@@ -94,14 +94,8 @@ function quickCreate() {
     layer.msg("调查说明不能为空!", {icon: 2});
     return
   }
-  var questionInfo = '';
-  if (getCookie('isEdit') != '2') {
-    deleteCookie('QuestionId');
-  }
-  //console.log(getCookie('projectIdForCreate'));
-  //console.log(getCookie('QuestionId'));
   //直接创建问卷
-  if (urlObj.i == "") {
+  if (urlObj.i === "") {
     var da = {
       'questionName': questionName,
       'questionContent': questionContent,
@@ -114,14 +108,14 @@ function quickCreate() {
     };
     if (getCookie('TProjectId') != undefined) {    //创建问卷
       da.projectId = getCookie('TProjectId');
-      da.questionStop = '5';
+      da.questionStop = questionStop;
     }
     var url = '/addQuestionnaire';
     commonAjaxPost(true, url, da, addQuestionnaireSuccess);
   } else {
     //先拿questionid查一下问卷内容
     var url1='/queryQuestionnaireAll'
-    var questionId={"questionId":getCookie('TQuestionId')}
+    var questionId={"questionId":getCookie('QuestionId')}
     commonAjaxPost(true, url1, questionId, function (res) {
       var url2 = '/addQuestionnaire';
       da1 = {
@@ -132,8 +126,8 @@ function quickCreate() {
         'questionStop': questionStop,
         'dataId': getCookie('dataId'),
         'projectId': projectId,//新的项目id
-        'question':res.data.question,
-        'questionTitle':res.data.questionTitle
+        'questionTitle':res.data.questionTitle,
+        'questionList':getCookie('question')
       };
       commonAjaxPost(true, url2, da1,addQuestionnaireSuccess );
     });
@@ -143,11 +137,14 @@ function quickCreate() {
 function addQuestionnaireSuccess(res) {
   //console.log(res);
   if (res.code == '666') {
+
     layer.msg(res.message, {icon: 1});
     deleteCookie('dataId');
     deleteCookie('QuestionId');
+    console.log("delete finish")
     setCookie('QuestionId',res.data.id)
     window.location.href = 'designQuestionnaire.html'
+
   } else if (res.code == "333") {
     layer.msg(res.message, {icon: 2});
     setTimeout(function () {

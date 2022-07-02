@@ -87,7 +87,7 @@ function modifyQuest() {
             "startTime": questionStarTimeIntTemp,
             "endTime": questionEnTimeIntTemp
         };
-        commonAjaxPost(true, url, data, modifyQuestSuccess2);
+        commonAjaxPost(true, url, data, modifyQuestSuccess);
     }
 }
 

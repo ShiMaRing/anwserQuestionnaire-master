@@ -338,7 +338,7 @@ public class QuestionnaireController {
       if (status == 1) {
         httpResponseEntity.setCode(Constans.SUCCESS_CODE);
         //httpResponseEntity.setData(status);
-        httpResponseEntity.setMessage(Constans.UPDATE_STATUS_MESSAGE);
+        httpResponseEntity.setMessage("编辑成功");
       }
     } catch (Exception e) {
       logger.info("addUserInfo 根据问卷id删除问卷>>>>>>>>>>>" + e.getLocalizedMessage());

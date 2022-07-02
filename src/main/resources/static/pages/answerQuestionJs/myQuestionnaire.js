@@ -56,7 +56,7 @@ function getProjectQuestSuccess(result) {
                 text += "";
                 text += "         <div class=\"operation-box pull-right\" style=\"font-size: 16px;\">";
                 text += "             <a class=\"pull-left release-items\" title=\"创建问卷\" onclick=\"createGetProjectInfo(" + "'" + projectInfo.id + "'" + "," + "'" + projectName + "'" + ")\">";
-                text += "                 <i class=\"icon release-icon\"></i>创建问卷</a>";
+                text += "                 <i class=\"icon release-icon\"></i>添加问卷</a>";
                 text += "             <a href=\"javascript:void(0)\" id=\"projcetShow" + i + "\" class=\"pull-left copy-items\" onclick=\"getProjectInfo(" + "'" + projectName + "'" + ")\"><i class=\"icon copy-icon\"></i>查看</a>";
                 text += "             <a class=\"pull-left item-remind\" id=\"projcetUpdate" + i + "\" href=\"javascript:void(0)\" onclick=\"editProject(" + "'" + projectInfo.id + "'" + "," + "'" + projectName + "'" + "," + "'" + projectInfo.project_content + "'" + ")\"><i class=\"icon remind-icon\"></i>编辑</a>";
                 text += "             <a href=\"javascript:void(0)\" class=\"pull-left cutout-items\" title=\"删除此项目\" onclick=\"deleteProject(" + "'" + projectInfo.id + "'" + ")\"><i class=\"icon cutout-icon\"></i>删除 </a>";
@@ -78,7 +78,9 @@ function getProjectQuestSuccess(result) {
                 text += "   <thead>"
                 text += "   <tr align=\"center\" valign=\"middle\"style=\"color:Gray;background-color:#F7F8F9;border-color:#D7D8D9;font-size:14px;height:36px;\">"
                 text += "    <th style=\"text-align:center;width:10%\" scope=\"col\">序号</th>"
-                text += "   <th style=\"text-align:center; width: 40%\" scope=\"col\">问卷名称</th>"
+                text += "   <th style=\"text-align:center; width: 10%\" scope=\"col\">问卷名称</th>"
+                text += "   <th style=\"text-align:center; width: 20%\" scope=\"col\">开始时间</th>"
+                text += "   <th style=\"text-align:center; width: 20%\" scope=\"col\">结束时间</th>"
                 text += "    <th style=\"text-align:center;width:10%\" scope=\"col\">状态</th>"
                 text += "   <th style=\"text-align:center;width: 40%\" scope=\"col\">操作</th>"
                 text += " </tr>"
@@ -143,8 +145,14 @@ function getQuestionnaireInfoByProjectId(name, result) {
                     text += "    <td align=\"center\" >";
                     text += "        <span>" + (k + 1) + "</span>";
                     text += "    </td>";
-                    text += "    <td align=\"center\" >";
+                    text += "    <td align=\"center\" style=\"color:#333333;background-color:White;font-size:14px;height:36px;\">";
                     text += "       <a id=\"btnView\" href=\"javascript:void(0)\" onclick=\"previewQuest(" + "'" + questionnaireData.id + "'" + ")\">" + questionnaireData.questionName + "</a>";
+                    text += "    </td>";
+                    text += "    <td align=\"center\" >";
+                    text += "       <span>" + questionnaireData.startTime + "</span>";
+                    text += "    </td>";
+                    text += "    <td align=\"center\" >";
+                    text += "      <span>" + questionnaireData.endTime + "</span>";
                     text += "    </td>";
                     text += "    <td align=\"center\">";
                     text += "        <span>" + status + "</span>";

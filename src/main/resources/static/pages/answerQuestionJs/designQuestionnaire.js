@@ -1174,7 +1174,7 @@ function addQuestionnaireSuccess(res) {
             judgeQuestionId();
             // console.log(getCookie('QuestionId'));
             questionList = [];
-            window.location.href = 'myQuestionnaire.html';
+            window.location.href = 'myQuestionnaires.html';
         }
     } else if (res.code == "333") {
         layer.msg(res.message, {icon: 2});

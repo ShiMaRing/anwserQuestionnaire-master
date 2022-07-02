@@ -370,6 +370,7 @@
                question_content as questionContent,
                question_stop    as questionStop,
                creation_date    as creationDate,
+               start_time       as startTime,
                end_time         as endTime,
                data_id          as dataId,
                release_time     as releaseTime,
@@ -599,7 +600,7 @@
 
     <!--查询问卷模板-->
     <select id="queryQuestionnaireMould" parameterType="java.lang.String" resultType="map">
-        SELECT id, question_name as questionName, question_content as questionContent
+        SELECT id, question_name as questionName, question_content as questionContent ,question
         FROM questionnaire_info
         WHERE data_id = #{dataId,jdbcType=VARCHAR}
           AND question_stop = '4'
