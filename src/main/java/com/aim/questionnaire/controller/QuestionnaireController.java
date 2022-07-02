@@ -5,6 +5,7 @@ import com.aim.questionnaire.common.Constans;
 import com.aim.questionnaire.dao.entity.ProjectEntity;
 import com.aim.questionnaire.dao.entity.QuestionnaireEntity;
 import com.aim.questionnaire.service.QuestionnaireService;
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 import java.util.HashMap;
 import java.util.List;
@@ -106,6 +107,7 @@ public class QuestionnaireController {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
     Object questionId = map.get("questionId");
     QuestionnaireEntity questionnaireEntity = questionnaireService.queryQuestionnaireAll((String) questionId);
+
     try {
       if (questionnaireEntity!=null) {
         httpResponseEntity.setCode(Constans.SUCCESS_CODE);
@@ -204,12 +206,11 @@ public class QuestionnaireController {
   public HttpResponseEntity modifyQuestionnaireInfo(
       @RequestBody QuestionnaireEntity questionnaireEntity) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
-
     int status = questionnaireService.modifyQuestionnaireInfo(questionnaireEntity);
     try {
       if (status == 1) {
         httpResponseEntity.setCode(Constans.SUCCESS_CODE);
-        httpResponseEntity.setMessage(Constans.CANCEL_PROJECT_MESSAGE);
+        httpResponseEntity.setMessage("编辑成功");
       } else if (status == 0) {
         httpResponseEntity.setCode(Constans.EXIST_CODE);
         httpResponseEntity.setMessage(Constans.COPY_EXIT_UPDATE_MESSAGE);

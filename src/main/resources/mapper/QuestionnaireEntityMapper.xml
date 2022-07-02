@@ -16,6 +16,7 @@
         <!-- 老师注释掉了-->
         <result column="context" jdbcType="VARCHAR" property="context"/>
         <result column="question_stop" jdbcType="VARCHAR" property="questionStop"/>
+        <result column="question_content" jdbcType="VARCHAR" property="questionContent"/>
         <result column="release_time" jdbcType="TIMESTAMP" property="releaseTime"/>
         <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
         <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
@@ -25,6 +26,7 @@
         <result column="last_updated_by" jdbcType="CHAR" property="lastUpdatedBy"/>
         <result column="last_update_date" jdbcType="TIMESTAMP" property="lastUpdateDate"/>
     </resultMap>
+
     <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
                type="com.aim.questionnaire.dao.entity.QuestionnaireEntity">
         <!--
@@ -616,7 +618,7 @@
     </select>
 
     <!--根据id修改问卷的全部信息-->
-    <update id="modifyQuestionnaire" parameterType="map">
+    <update id="modifyQuestionnaire" parameterType="com.aim.questionnaire.dao.entity.QuestionnaireEntity">
         update questionnaire_info
         <set>
             <if test="projectId != null">

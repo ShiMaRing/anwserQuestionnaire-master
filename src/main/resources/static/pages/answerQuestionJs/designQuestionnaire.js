@@ -962,7 +962,7 @@ function editFinish() {
         var da = '';
         var url = '';
         da = {
-            'questionList': questionList,
+            'questionList': JSON.stringify(questionList),
             'questionTitle': questionTitles, //所有的题目
             'questionId': questionId,
             'dataId': dataId,
@@ -1168,20 +1168,13 @@ function addQuestionnaireSuccess(res) {
         deleteCookie('QuestionId');
         deleteCookie('previewId');
         layer.msg(res.message, {icon: 1});
-
-        if (res.message == '添加成功') {
+        if (res.message == '编辑成功') {
             setCookie('QuestionId', res.data);
             setCookie('previewId', res.data);
             judgeQuestionId();
             // console.log(getCookie('QuestionId'));
             questionList = [];
             window.location.href = 'myQuestionnaire.html';
-        } else if (res.message == '修改成功') {
-            setCookie('QuestionId', res.data);
-            setCookie('previewId', res.data);
-            judgeQuestionId();
-            window.location.href = 'myQuestionnaire.html';
-            // console.log(getCookie('QuestionId'));
         }
     } else if (res.code == "333") {
         layer.msg(res.message, {icon: 2});
@@ -1218,7 +1211,7 @@ function queryQuestionnaireAllSuccess(res) {
             startTime = res.data.startTime;
             questionStop = res.data.questionStop;
         }
-        var question = res.data.question;
+        var question = JSON.parse(res.data.question);
         setCookie('questionList', question);
         if (question != null) {
             for (var i = 0; i < question.length; i++) {
