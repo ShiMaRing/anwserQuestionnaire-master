@@ -527,7 +527,7 @@ function getQuestionInfo() {
 
 //读取上传的excel表格中的内容
 $('#image').change(function (e) {
-  debugger;
+
   var files = e.target.files;
   var fileReader = new FileReader();
   fileReader.onload = function (ev) {

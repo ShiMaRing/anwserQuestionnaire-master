@@ -2,11 +2,13 @@ package com.aim.questionnaire.controller;
 
 import com.aim.questionnaire.beans.HttpResponseEntity;
 import com.aim.questionnaire.common.Constans;
+import com.aim.questionnaire.common.utils.DateUtil;
 import com.aim.questionnaire.dao.entity.ProjectEntity;
 import com.aim.questionnaire.dao.entity.QuestionnaireEntity;
 import com.aim.questionnaire.service.QuestionnaireService;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -274,20 +276,28 @@ public class QuestionnaireController {
   }
 
 
-
   //找到所有过期模板
   @RequestMapping(value = "/queryQuestContextEnd", method = RequestMethod.POST, headers = "Accept=application/json")
   public HttpResponseEntity queryQuestContextEnd(@RequestBody Map<String, Object> map) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
-    //找到所有过期模板
-    httpResponseEntity.setData(questionnaireService.queryHistoryQuestionnaire(map));
-    httpResponseEntity.setCode(Constans.SUCCESS_CODE);
+    QuestionnaireEntity questionnaireEntity = questionnaireService.queryQuestContextEnd(
+        map);
+    try {
+      if (questionnaireEntity != null) {
+        httpResponseEntity.setCode(Constans.SUCCESS_CODE);
+        httpResponseEntity.setData(questionnaireEntity);
+        httpResponseEntity.setMessage(Constans.STATUS_MESSAGE);
+      } else {
+        httpResponseEntity.setCode(Constans.EXIST_CODE);
+        httpResponseEntity.setData(questionnaireEntity);
+        httpResponseEntity.setMessage(Constans.QUERYFAIL_MESSAGE);
+      }
+    } catch (Exception e) {
+      httpResponseEntity.setCode(Constans.EXIST_CODE);
+      httpResponseEntity.setMessage(Constans.EXIST_MESSAGE);
+    }
     return httpResponseEntity;
   }
-
-
-
-
 
 
   @RequestMapping(value = "/addQuestionnaire", method = RequestMethod.POST, headers = "Accept=application/json")
@@ -395,11 +405,52 @@ public class QuestionnaireController {
   @RequestMapping(value = "/addSendQuestionnaire", method = RequestMethod.POST, headers = "Accept=application/json")
   public HttpResponseEntity addSendQuestionnaire(@RequestBody HashMap<String, Object> map) {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
-    questionnaireService.sendByEmail(map);
-//    int status = questionnaireService.modifyQuestionnaire(map);
+    //最后的核心方法，根据传递的map判断发送的类型，还要拿到最后发送的数据，
+    String sendType = (String) map.get("sendType");
+    //根据发送的类型数据，给出不同的解决方案
+    int status = 0;
+    switch (sendType) {
+      case "0":
+        Object releaseTime = map.get("releaseTime");
+        if(releaseTime.toString().equals("")){
+          Date currentDate = DateUtil.getCurrentDate();
+          map.put("releaseTime",currentDate);
+        }else
+        {
+          map.put("releaseTime",new Date((long)releaseTime));
+        }
+        status=questionnaireService.addSendQuestionnaire(map);
+        break;
+      case "1":
+        //邮箱发送方式
+        map.put("releaseTime", DateUtil.getCurrentDate());
+        status=questionnaireService.addSendQuestionnaire(map);
+        questionnaireService.sendByEmail(map);
+        break;
+      case "2":
+        //链接发送方式
+        Date currentDate = DateUtil.getCurrentDate();
+        map.put("releaseTime",currentDate);
+        status=questionnaireService.addSendQuestionnaire(map);
+        break;
+      default:
+        break;
+    }
+    //不管如何发送，最后问卷状态都调整为已发送
+    if (status==1){
+      map.put("id",map.get("questionId"));
+      map.put("questionStop","3");
+      questionnaireService.modifyQuestionnaireStatus(map);
+      httpResponseEntity.setCode(Constans.SUCCESS_CODE);
+      httpResponseEntity.setMessage("发送成功");
+    }
     return httpResponseEntity;
   }
 
+  @RequestMapping(value = "/selSum", method = RequestMethod.POST, headers = "Accept=application/json")
+  public int addSendQuestionnaire() {
+    return 100;
+  }
 
 }
 

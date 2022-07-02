@@ -23,9 +23,9 @@ public class CommonUtils {
         return randomNumStr;
     }
 
-    public static void sendEmail(String myqq, String userqq , String title, String textContext,String time) throws Exception{
+    public static void sendEmail(String myqq, String userqq , String title, String textContext) throws Exception{
             //授权码
-        String password = "bulobfgovqhodegh";
+        String password = "xgs1150840779";
 
 
         Properties properties = new Properties();
@@ -63,11 +63,11 @@ public class CommonUtils {
         //指明邮件的发件人
         mimeMessage.setFrom(new InternetAddress(myqq + "@qq.com"));
         //指明邮件的收件人
-        mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress( userqq + "@qq.com"));
+        mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress( userqq));
         //邮件的标题
         mimeMessage.setSubject(title);
         //邮件的文本内容
-        mimeMessage.setContent(textContext + time,"text/html;charset=utf-8");
+        mimeMessage.setContent(textContext,"text/html;charset=utf-8");
         //发送邮件
         ts.sendMessage(mimeMessage,mimeMessage.getAllRecipients());
         //关闭连接

@@ -1,5 +1,6 @@
 package com.aim.questionnaire.service;
 
+import com.aim.questionnaire.common.utils.CommonUtils;
 import com.aim.questionnaire.common.utils.DateUtil;
 import com.aim.questionnaire.common.utils.UUIDUtil;
 import com.aim.questionnaire.dao.ProjectEntityMapper;
@@ -9,7 +10,6 @@ import com.aim.questionnaire.dao.entity.ProjectEntity;
 import com.aim.questionnaire.dao.entity.QuestionnaireEntity;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -35,20 +35,32 @@ public class QuestionnaireService {
   private UserEntityMapper userEntityMapper;
 
 
-  public void sendByEmail(Map<String, Object> map) {
-    String emailTitle = (String) map.get("emailTitle");
-    String sendInfo = (String) map.get("sendInfo");
-    System.out.println(emailTitle);
-    System.out.println(sendInfo);
+  public void sendByEmail(Map<String, Object> para) {
 
-    Date date = new Date();
-    SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");
-    String datetime = sdf.format(date);
-
-    //调用方法测试
-//        CommonUtils.sendEmail(myqq,userqq,title,textContext,datetime);
+    List<Map<String, Object>> maps = (List<Map<String, Object>>) para.get("sendInfo");
+    for (Map<String, Object> map : maps) {
+      String emailTitle = (String) para.get("emailTitle");
+      String textContext = (String) para.get("context");
+      textContext.replaceAll("【联系人姓名】", (String) map.get("answerName"));
+      String url = urlCreate((String) para.get("questionId"));
+      textContext.replaceAll("【问卷地址】", url);
+      try {
+        CommonUtils.sendEmail("3578379415", (String) map.get("answerEmail"), emailTitle,
+            textContext);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
   }
 
+  String urlCreate(String id) {
+    String baseUrl = "http://localhost:8085/pages/previewQuestionnaire.html?";
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append("id=").append(id);
+    stringBuilder.append("&type=e");
+    baseUrl += stringBuilder.toString();
+    return baseUrl;
+  }
 
   /**
    * 根据项目id查询问卷列表
@@ -135,7 +147,7 @@ public class QuestionnaireService {
       Date endTime = DateUtil.getMyTime(endTimeStr);
       map.put("startTime", startTime);
       map.put("endTime", endTime);
-    }else{
+    } else {
       map.remove("startTime");
       map.remove("endTime");
     }
@@ -192,7 +204,6 @@ public class QuestionnaireService {
   }
 
 
-
   public List<Map<String, Object>> queryHistoryQuestionnaire(Map<String, Object> map) {
     return questionnaireEntityMapper.queryHistoryQuestionnaire((HashMap<String, Object>) map);
   }
@@ -225,5 +236,14 @@ public class QuestionnaireService {
   public Map<String, String> queryQuestionnaireById(Map<String, Object> map) {
     return questionnaireEntityMapper.queryQuestionnaireById(
         (HashMap<String, Object>) map);
+  }
+
+  public QuestionnaireEntity queryQuestContextEnd(Map<String, Object> map) {
+    return questionnaireEntityMapper.queryQuestContextEnd(
+        (String) map.get("id"));
+  }
+
+  public int addSendQuestionnaire(HashMap<String, Object> map) {
+    return questionnaireEntityMapper.addSendQuestionnaire(map);
   }
 }
