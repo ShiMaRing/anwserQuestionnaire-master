@@ -7,7 +7,6 @@ var eORp = 'zzz';     //判断是邮箱还是手机号还是连接
 var flag = "false";
 
 var previewType = getCookie("previewType");
-
 $(function () {
     $("#layui-layer1").css('top','45%');
     $("#layui-layer1").css('left','45%');
