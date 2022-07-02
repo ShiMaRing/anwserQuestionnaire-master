@@ -247,7 +247,7 @@ function setQuestion(result) {
     }
 
     $('.officialTips').html(result.data.questionContent);
-    questionList = result.data.questionList;
+    questionList = JSON.parse(result.data.questionList);
     if(questionList!=null) {
         for (var i = 0; i < questionList.length; i++) {
             var questionType = questionList[i].questionType;

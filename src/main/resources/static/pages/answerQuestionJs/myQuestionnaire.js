@@ -350,6 +350,12 @@ function sendQustionnaire(id,name,dataId) {
     });
 
 }
+// 预览问卷
+function previewQuest(id) {
+    console.log(id)
+    window.open('previewQuestionnaire.html' + '?id=' + id);
+}
+
 
 
 
