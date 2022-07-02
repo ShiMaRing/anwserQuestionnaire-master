@@ -41,9 +41,9 @@ public class QuestionnaireService {
     for (Map<String, Object> map : maps) {
       String emailTitle = (String) para.get("emailTitle");
       String textContext = (String) para.get("context");
-      textContext.replace("【联系人姓名】", (String) map.get("answerName"));
+      textContext=textContext.replace("【联系人姓名】", (String) map.get("answerName"));
       String url = urlCreate((String) para.get("questionId"));
-      textContext.replace("【问卷地址】", url+map.get("answerEmail"));
+      textContext=textContext.replace("【问卷地址】", url+map.get("answerEmail"));
       try {
         CommonUtils.sendEmail("3578379415", (String) map.get("answerEmail"), emailTitle,
             textContext);
