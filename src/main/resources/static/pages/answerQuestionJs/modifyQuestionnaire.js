@@ -1,28 +1,150 @@
 /**
- * Created by Amy on 2018/8/6.
+ * Created by Amy on 2018/8/8.
  */
-var question = '';
-var questionTitle = '';
-var da1 = {};
+
+var questionName = '';
+var questionContent = '';
+var questionId = '';
+var endTime = '';
+var startTime = '';
+var dataId = '';
+var ifEditQuestType = '';
+
 $(function () {
+  initData();
+  isLoginFun();
+  header();
+  $("#ctl01_lblUserName").text(getCookie('userName'));
+  createTimePicker();
+  $("#questionName").val(questionName);
+  $("#questionContent").val(questionContent);
+  queryAllDataType();
+  $("#questionStartEndTime").val(startTime + " ~ " + endTime);
+  $("#ifRemand").css('display', 'none');
+
 });
 
-// 创建时间选择器
-function createDtePicker() {
+function initData() {
+  var data = {
+    "questionId": getCookie('questionId')
+  };
+  var url = '/queryQuestionnaireAll';
+
+  commonAjaxPost(false, url, data, function (res) {
+    result = res.data;
+    questionId=result.id;
+    questionName = result.questionName;
+    questionContent = result.questionContent;
+    endTime = result.endTime;
+    startTime = result.startTime;
+    dataId = result.dataId;
+    ifEditQuestType = 'true'
+  })
+
+}
+
+//铺调查类型
+function queryAllDataType() {
+  var url = '/admin/queryAllDataType';
+  var da = {'parentId': '1'};
+  commonAjaxPost(true, url, da, function (result) {
+    result.code = "666"
+
+    console.log(result);
+    if (result.code == "666") {
+      var belongType = document.getElementById('belongType');
+      belongType.options.length = 0;
+      for (var i = 0; i < result.data.length; i++) {
+        var collOpt = document.createElement('option');
+        collOpt.innerText = result.data[i].name;
+        collOpt.value = result.data[i].id;
+        belongType.appendChild(collOpt);
+        $("#belongType").val(dataId);
+      }
+      if (ifEditQuestType == "false") {
+        $("#belongType").attr("disabled", "disabled");
+        $("#ifRemand").css('display', 'block');
+      }
+    } else if (result.code == "333") {
+      layer.msg(result.message, {icon: 2});
+      setTimeout(function () {
+        window.location.href = 'login.html';
+      }, 1000)
+    } else {
+      layer.msg(result.message, {icon: 2})
+    }
+  });
+}
+
+//点击“保存修改”，编辑问卷
+function modifyQuest() {
+  var questionNameInt = $("#questionName").val();
+  var questionContentInt = $("#questionContent").val();
+  var belongType = $("#belongType").val();
+  var questionStarTimeInt = $("#questionStartEndTime").val().split(" ~ ")[0];
+  var questionEnTimeInt = $("#questionStartEndTime").val().split(" ~ ")[1];
+
+  var questionStarTimeIntTemp = dateChange(questionStarTimeInt);
+  var questionEnTimeIntTemp = dateChange(questionEnTimeInt);
+
+  var questionStop;
+  var radio = document.getElementsByName("isOpen");
+  for (i = 0; i < radio.length; i++) {
+    if (radio[i].checked) {
+      questionStop = radio[i].value
+    }
+  }
+  if (questionNameInt.trim() == '') {
+    layer.msg('请完整填写项目名称')
+  } else if (questionContentInt.trim() == '') {
+    layer.msg('请完整填写项目描述')
+  } else {
+    var url = '/modifyQuestionnaireInfo';
+    var data = {
+      "id": questionId,
+      "questionName": questionNameInt,
+      "questionContent": questionContentInt,
+      "dataId": belongType,
+      "startTime": questionStarTimeIntTemp,
+      "endTime": questionEnTimeIntTemp,
+      "questionStop": questionStop
+    };
+    commonAjaxPost(true, url, data, modifyQuestSuccess);
+  }
+}
+
+//修改问卷信息成功
+function modifyQuestSuccess(result) {
+  if (result.code == '666') {
+    layer.msg('修改成功', {icon: 1});
+    setTimeout(function () {
+      window.location.href = 'createProject.html';
+      deleteCookie('hidden');
+      setCookie('hidden','true');
+    }, 500);
+  } else if (result.code == "333") {
+    layer.msg(result.message, {icon: 2});
+    setTimeout(function () {
+      window.location.href = 'login.html';
+    }, 1000)
+  } else {
+    layer.msg(result.message, {icon: 2});
+  }
+}
+
+// 创建时间区域选择
+function createTimePicker() {
+  var beginTimeStore = '';
+  var endTimeStore = '';
   var nowTime = getFormatDateSecond();
-  var startTime = GetDateStr(1);
-  var date = new Date();
-  var milliseconds = date.getTime() + 1000 * 60 * 60 * 24 * 8;  //n代表天数,加号表示未来n天的此刻时间,减号表示过去n天的此刻时间   n:7
-  //getTime()方法返回Date对象的毫秒数,但是这个毫秒数不再是Date类型了,而是number类型,所以需要重新转换为Date对象,方便格式化
-  var newDate = new Date(milliseconds);
-  var dateAfterNow = timeFormat(newDate);
-  $('#config-demo').daterangepicker({
-    // "autoApply": true,
+  var start1 = startTime;
+  $('#questionStartEndTime').daterangepicker({
     "minDate": nowTime,
     "startDate": startTime,
-    "endDate": dateAfterNow,
+    "endDate": endTime,
     "timePicker": true,
-    "timePicker24Hour": true,
+    "timePicker12Hour": true,
+    "linkedCalendars": false,
     "locale": {
       "resetLabel": "重置",
       "format": 'YYYY/MM/DD HH:mm:ss',
@@ -39,24 +161,7 @@ function createDtePicker() {
       "firstDay": 1
     },
   }, function (start, end, label) {
-    // //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+
   });
-}
 
-
-window.operateEvents = {
-    //编辑
-    'click #btn_count': function (e, value, row, index) {
-        id = row.id;
-        $.cookie('questionnaire', id);
-    }
-};
-
-function modifyQuestuinnairePage(opusername, value,id) {
-    if(id != ''){
-        deleteCookie("userId");
-        setCookie("userId",id);
-    }
-    console.log(getCookie("opusername"));
-    window.location.href = 'createNewUser.html';
 }

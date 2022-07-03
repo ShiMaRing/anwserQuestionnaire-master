@@ -222,7 +222,6 @@ public class QuestionnaireController {
         httpResponseEntity.setMessage(Constans.COPY_EXIT_UPDATE_MESSAGE);
       }
     } catch (Exception e) {
-      logger.info("addUserInfo 取消问卷和项目的关联>>>>>>>>>>>" + e.getLocalizedMessage());
       httpResponseEntity.setCode(Constans.LOGOUT_NO_CODE);
       httpResponseEntity.setMessage(Constans.EXIST_MESSAGE);
     }
