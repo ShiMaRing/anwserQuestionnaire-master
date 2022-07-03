@@ -220,8 +220,8 @@ function editUserPage(id) {
     if(confirm("是否编辑用户？")){
         openCreateUserPage(getCookie('userName'),'编辑',id);
     }
-
 }
+
 // 修改用户状态（禁用、开启）
 function changeStatus(id) {
     // console.log(index);

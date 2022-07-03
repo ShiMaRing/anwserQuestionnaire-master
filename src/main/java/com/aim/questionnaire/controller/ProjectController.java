@@ -154,7 +154,6 @@ public class ProjectController {
     @RequestMapping(value = "/queryAllProjectName", method = RequestMethod.POST, headers = "Accept=application/json")
     public HttpResponseEntity queryAllProjectName() {
         HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
-
         return httpResponseEntity;
     }
 }

@@ -230,6 +230,8 @@ function addFunctionAlty(value, row, index) {
     //隐藏取消添加按钮
     btnText += "<button type=\"button\" disabled=\"disabled\" id=\"btn_cancel" + row.id + "\" onclick=\"cancelQuestionnaireConnection(" + "'" + row.id + "'" + ")\" class=\"btn btn-danger-g ajax-link\" >取消添加</button>&nbsp;&nbsp;"
     //}
+    btnText += "<button type=\"button\" id=\"btn_modify" + row.id + "\" onclick=\"modifyQuestionnaireInfo(" + "'" + row.id + "'" + ")\" class=\"btn btn-default-g ajax-link\" >修改</button>&nbsp;&nbsp;"
+
     return btnText;
 }
 
@@ -255,6 +257,13 @@ function addQuestionnaire(id) {
         }
     });
     // window.location.href = "addQuestionnaire.html";
+}
+
+//修改问卷起始时间及状态
+//todo
+function modifyQuestionnaireInfo(id){
+        setCookie("questionnaireId",id)
+        window.location.href = "modifyQuestionnaire.html";
 }
 
 //取消问卷关联
