@@ -39,11 +39,12 @@ public class QuestionnaireService {
 
     List<Map<String, Object>> maps = (List<Map<String, Object>>) para.get("sendInfo");
     for (Map<String, Object> map : maps) {
+
       String emailTitle = (String) para.get("emailTitle");
       String textContext = (String) para.get("context");
-      textContext=textContext.replace("【联系人姓名】", (String) map.get("answerName"));
+      textContext = textContext.replace("【联系人姓名】", (String) map.get("answerName"));
       String url = urlCreate((String) para.get("questionId"));
-      textContext=textContext.replace("【填写问卷地址】", url+map.get("answerEmail"));
+      textContext = textContext.replace("【填写问卷地址】", url + map.get("answerEmail"));
       try {
         CommonUtils.sendEmail("3578379415", (String) map.get("answerEmail"), emailTitle,
             textContext);
@@ -256,10 +257,20 @@ public class QuestionnaireService {
   }
 
   public void modifyAnswerCount(QuestionnaireEntity questionnaireEntity) {
-     questionnaireEntityMapper.modifyAnswerCount(questionnaireEntity);
+    questionnaireEntityMapper.modifyAnswerCount(questionnaireEntity);
   }
 
   public List<Map<String, Object>> queryAllQuestionnaireByCreated(Map<String, Object> map) {
-    return  questionnaireEntityMapper.queryAllQuestionnaireByCreated(map);
+    return questionnaireEntityMapper.queryAllQuestionnaireByCreated(map);
+  }
+
+  public List<Map<String, Object>> queryQuestionnaireList(Map<String, Object> map) {
+    return questionnaireEntityMapper.queryQuestionnaireList((HashMap<String, Object>) map);
+  }
+
+  public int modifyHistoryQuestionnaireStatus(Map<String, Object> map) {
+    map.put("endTime", new Date((long) map.get("endTime")));
+    return questionnaireEntityMapper.modifyHistoryQuestionnaireStatus(
+        (HashMap<String, Object>) map);
   }
 }

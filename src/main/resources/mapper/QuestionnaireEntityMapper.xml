@@ -338,7 +338,7 @@
   <!--修改历史问卷表状态-->
   <update id="modifyHistoryQuestionnaireStatus">
     UPDATE questionnaire_info
-    SET question_stop = '1'
+    SET question_stop = '2'
     <if test="releaseTime != null">
       ,release_time = #{releaseTime,jdbcType=TIMESTAMP}
     </if>
@@ -412,10 +412,10 @@
 
   <!--查询历史问卷/模糊搜索-->
   <select id="queryQuestionnaireList" resultType="java.util.Map">
-    SELECT id,project_id as projectId,question_name as questionName, end_time as endTime
-    FROM questionnaire_info que
-    WHERE question_stop = '0'
-    AND created_by = #{user,jdbcType=CHAR}
+    SELECT que.id,project_id as projectId,question_name as questionName, end_time as endTime,project_name as projectName,
+    answer_total as `count`
+    FROM questionnaire_info que,project_info pro
+    WHERE question_stop = '0' and que.project_id=pro.id
     <if test="questionName != null">
       AND question_name LIKE concat('%',#{questionnaireName},'%')
     </if>
@@ -666,7 +666,7 @@
     as questionContent
     FROM questionnaire_info
     WHERE
-    question_stop != '4'
+    question_stop ='0'
     <if test="dataId != null">
       AND data_id = #{dataId,jdbcType = VARCHAR}
     </if>

@@ -483,7 +483,7 @@ questionId: "f1a52b2369c9425987a1133d471dd187"*/
       return httpResponseEntity;
     }
 
-    if (!questionnaireEntity.getQuestionStop().equals("3")){
+    if (!questionnaireEntity.getQuestionStop().equals("3")) {
       httpResponseEntity.setCode(Constans.EXIST_CODE);
       httpResponseEntity.setMessage("问卷未发送，请勿作答");
       return httpResponseEntity;
@@ -498,14 +498,14 @@ questionId: "f1a52b2369c9425987a1133d471dd187"*/
     }
     //给数量+1
     String answerTotal = questionnaireEntity.getAnswerTotal();
-    int i = Integer.parseInt(answerTotal)+1;
+    int i = Integer.parseInt(answerTotal) + 1;
     questionnaireEntity.setAnswerTotal("" + i);
 
     questionnaireService.modifyAnswerCount(questionnaireEntity);
 
     map.put("answerList", map.get("answerList").toString());
-    map.put("answerTime",new Date(answerTime));
-    map.put("endTime",new Date(endTime));
+    map.put("answerTime", new Date(answerTime));
+    map.put("endTime", new Date(endTime));
 
     int status = questionnaireService.addAnswerQuestionnaire(map);
 
@@ -520,13 +520,52 @@ questionId: "f1a52b2369c9425987a1133d471dd187"*/
   }
 
 
+  @RequestMapping(value = "/queryQuestionnaireList", method = RequestMethod.POST, headers = "Accept=application/json")
+  public HttpResponseEntity queryQuestionnaireList(@RequestBody Map<String, Object> map) {
+    HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+    if (map.get("questionName") == null || map.get("questionName").equals("")) {
+      map.remove("questionName");
+    }
+    List<Map<String, Object>> status = questionnaireService.queryQuestionnaireList(map);
+    try {
+      if (status != null && status.size() > 0) {
+        httpResponseEntity.setData(status);
+        httpResponseEntity.setCode(Constans.SUCCESS_CODE);
+        httpResponseEntity.setMessage("查询成功");
+      }
+    } catch (Exception e) {
+      httpResponseEntity.setCode(Constans.LOGOUT_NO_CODE);
+      httpResponseEntity.setMessage(Constans.EXIST_MESSAGE);
+    }
+    return httpResponseEntity;
+  }
+
+
+  @RequestMapping(value = "/modifyHistoryQuestionnaireStatus", method = RequestMethod.POST, headers = "Accept=application/json")
+  public HttpResponseEntity modifyHistoryQuestionnaireStatus(@RequestBody Map<String, Object> map) {
+    HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+    int status = questionnaireService.modifyHistoryQuestionnaireStatus(map);
+    try {
+      if (status > 0) {
+        httpResponseEntity.setData(status);
+        httpResponseEntity.setCode(Constans.SUCCESS_CODE);
+        httpResponseEntity.setMessage("修改成功");
+      }
+    } catch (Exception e) {
+      httpResponseEntity.setCode(Constans.LOGOUT_NO_CODE);
+      httpResponseEntity.setMessage(Constans.EXIST_MESSAGE);
+    }
+    return httpResponseEntity;
+  }
+
+
   @RequestMapping(value = "/queryAllQuestionnaireByCreated", method = RequestMethod.POST, headers = "Accept=application/json")
   public HttpResponseEntity queryAllQuestionnaireByCreated() {
     HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
     Map<String, Object> map = new HashMap<>();
     List<Map<String, Object>> status = questionnaireService.queryAllQuestionnaireByCreated(map);
     try {
-      if (status!=null&&status.size()>0) {
+      if (status != null && status.size() > 0) {
         httpResponseEntity.setData(status);
         httpResponseEntity.setCode(Constans.SUCCESS_CODE);
         httpResponseEntity.setMessage("查询成功");
