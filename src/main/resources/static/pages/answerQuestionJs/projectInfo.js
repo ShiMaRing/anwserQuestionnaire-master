@@ -49,7 +49,7 @@ function getQuestionnaireInfo(result) {
     var data = {
         "projectName": projectName
     };
-    commonAjaxPost(true, url, data, function (result) {
+    commonAjaxPost(false, url, data, function (result) {
         if (result.code == "666") {
             $("#questTableBody").empty();
             var data = result.data;

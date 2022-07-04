@@ -116,7 +116,7 @@ public class QuestionnaireService {
   public int cancelQuestionnaireProject(String questionId) {
     int status = questionnaireEntityMapper.queryQuestionnaireStatusById(questionId);
     //问卷进行中
-    if (status == 1) {
+    if (status == 1||status==3) {
       return 0;
     }
     int result = questionnaireEntityMapper.cancelConnectionQuestionnaireProject(questionId);

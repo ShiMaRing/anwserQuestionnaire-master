@@ -239,6 +239,10 @@ function editQuestionnaireStatus(id, status) {
 
 // 编辑项目，在问卷未发布的状态下才可以编辑项目信息
 function editProject(id, name, content) {
+
+    deleteCookie("projectId");
+    setCookie("projectId", id);
+
     var url = '/modifyProjectInfo';
     var data = {
         "id": id
@@ -249,6 +253,7 @@ function editProject(id, name, content) {
             deleteCookie("projectId");
             deleteCookie("projectName");
             deleteCookie("projectContent");
+            deleteCookie("projectId");
             setCookie("projectId", id);
             setCookie("projectName", name);
             setCookie("projectContent", content);

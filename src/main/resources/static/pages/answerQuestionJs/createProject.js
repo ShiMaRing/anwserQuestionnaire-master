@@ -84,7 +84,6 @@ function createProjectRight() {
           deleteCookie("projectId");
           //设置项目id缓存
           setCookie("projectId", result.data);
-          setCookie("projectName", projectName);
           //setTimeout(function () {
           // window.location.href = "myQuestionnaires.html";
           //}, 700)
@@ -321,7 +320,6 @@ function backHome() {
   deleteCookie('questionId');
   deleteCookie('projectId');
   deleteCookie('hidden');
-  deleteCookie('projectName');
   window.location.href = "myQuestionnaires.html";
 }
 

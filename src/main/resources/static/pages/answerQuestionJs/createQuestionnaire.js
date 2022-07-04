@@ -149,7 +149,7 @@ function queryHistoryQuestionnaireSuccess(res) {
           '                    <div class="clear dotted-line--solid"></div>\n' +
           '                    <a href="#" class="btn btn-blue-frame main__btn--new" onclick=\'importModal('
           + '"' + res.data[i].id + '"' + ',' + '"' + res.data[i].questionName
-          + '"' + ',' + '"' + res.data[i].questionContent + '"' + ')\'>导入</a>' +
+          + '"' + ',' + '"' + res.data[i].questionContent + '"' + ','+ '"'+getCookie('projectId') +'"'+')\'>导入</a>' +
           '                </div>';
 
       $("#historyQuestion").append(historyModal_div);
@@ -267,16 +267,16 @@ function editModal(questionId) {
 //导入模板
 function importModal(questionId, questionName, questionContent, projectId) {
 
-
   deleteCookie('TQuestionId');
   deleteCookie('QuestionId');
   deleteCookie('isEdit');
   deleteCookie('TQuestionName');
   deleteCookie('TQuestionContent');
-
+  deleteCookie('questionId');
   //2为导入,导入的时候需要获取一下内容
   setCookie('isEdit', '2');
   setCookie('QuestionId',questionId);
+  setCookie('questionId',questionId);
   setCookie('TQuestionId', questionId);
   setCookie('TQuestionName', questionName);
   setCookie('TQuestionContent', questionContent);
@@ -287,9 +287,11 @@ function importModal(questionId, questionName, questionContent, projectId) {
   var data={
     'questionId':questionId
   }
+
   commonAjaxPost(false,url,data,function (res) {
     setCookie('question',res.data.question)
   })
+
 
   window.location.href = 'namedQuestionnaire.html';
 }

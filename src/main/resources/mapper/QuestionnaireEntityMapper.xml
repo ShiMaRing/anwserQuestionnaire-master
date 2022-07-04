@@ -425,7 +425,7 @@
   <select id="queryAllQuestionnaireList" resultType="java.util.Map">
     SELECT *
     FROM questionnaire_info
-    WHERE question_stop != '4' and question_stop!='1' and (project_id='' ||project_id=null)
+    WHERE question_stop != '4'  and (project_id='' ||project_id=null)
     <if test="questionName != null">
       and question_name LIKE concat('%',#{questionName},'%')
     </if>
@@ -556,6 +556,9 @@
       </if>
       <if test="startTime != null">
         start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="questionStop != null">
+        question_stop = #{questionStop,jdbcType=VARCHAR},
       </if>
       <if test="endTime != null">
         end_time = #{endTime,jdbcType=TIMESTAMP},
@@ -907,8 +910,7 @@
   <select id="queryAllQuestionnaire" resultType="java.util.Map">
     select id as questionId, question_name as questionName
     from questionnaire_info
-    where question_stop = '2'
-      and (project_id = null || project_id = '')
+    where  question_stop!='4' and (project_id = null || project_id = '')
   </select>
 
   <!--批量插入问卷答题详情-->
